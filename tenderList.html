@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browse Tenders - TenderPortal</title>
+    <meta name="description" content="Browse available tender opportunities" />
+    <link rel="stylesheet" href="tenderList.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="nav">
+          <div class="logo">
+            <i class="fas fa-building"></i>
+            <h1>TenderPortal</h1>
+          </div>
+          <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#" class="active">Browse Tenders</a>
+            <a href="#">My Applications</a>
+            <a href="#">Help</a>
+          </nav>
+          <div class="nav-actions">
+            <button class="btn-icon"><i class="fas fa-bell"></i></button>
+            <button class="btn-icon"><i class="fas fa-user"></i></button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-stats">
+      <div class="container">
+        <h2>Discover Business Opportunities</h2>
+        <p>Access thousands of tender opportunities from government agencies and organizations. 
+           Find the perfect contracts for your business.</p>
+        <div class="stats">
+          <div class="stat">
+            <div class="status-indicator open"></div>
+            <span>156 Open Tenders</span>
+          </div>
+          <div class="stat">
+            <div class="status-indicator closing"></div>
+            <span>23 Closing Soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters">
+      <div class="container">
+        <div class="filter-row">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search tenders or organizations..." />
+          </div>
+          <div class="filter-selects">
+            <select class="filter-select">
+              <option value="">All Categories</option>
+              <option value="construction">Construction</option>
+              <option value="it">IT Services</option>
+              <option value="consulting">Consulting</option>
+              <option value="healthcare">Healthcare</option>
+            </select>
+            <select class="filter-select">
+              <option value="">All Status</option>
+              <option value="open">Open</option>
+              <option value="closing-soon">Closing Soon</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tender Grid -->
+    <main class="tender-grid">
+      <div class="container">
+        <div class="grid-header">
+          <h3>Available Tenders (179)</h3>
+        </div>
+        <div class="tenders">
+          <!-- Sample Tender Cards -->
+          <div class="tender-card">
+            <div class="card-header">
+              <span class="status open">Open</span>
+              <span class="category">Construction</span>
+            </div>
+            <h4>Highway Infrastructure Maintenance Contract</h4>
+            <p class="organization">Department of Transportation</p>
+            <p class="description">Comprehensive maintenance services for highway infrastructure including road repairs, signage updates, and emergency response services.</p>
+            <div class="card-details">
+              <div class="value">
+                <i class="fas fa-dollar-sign"></i>
+                <span>$2.5M - $5M</span>
+              </div>
+              <span class="location">California, USA</span>
+            </div>
+            <div class="deadline">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: March 15, 2024</span>
+            </div>
+            <button class="btn btn-outline">View Details</button>
+          </div>
+
+          <div class="tender-card">
+            <div class="card-header">
+              <span class="status closing-soon">Closing Soon</span>
+              <span class="category">IT Services</span>
+            </div>
+            <h4>Cloud Infrastructure Migration Services</h4>
+            <p class="organization">City of San Francisco</p>
+            <p class="description">Migration of existing IT infrastructure to cloud-based solutions including data transfer, security implementation, and staff training.</p>
+            <div class="card-details">
+              <div class="value">
+                <i class="fas fa-dollar-sign"></i>
+                <span>$500K - $1M</span>
+              </div>
+              <span class="location">San Francisco, CA</span>
+            </div>
+            <div class="deadline">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: February 28, 2024</span>
+            </div>
+            <button class="btn btn-outline">View Details</button>
+          </div>
+
+          <div class="tender-card">
+            <div class="card-header">
+              <span class="status open">Open</span>
+              <span class="category">Healthcare</span>
+            </div>
+            <h4>Medical Equipment Procurement</h4>
+            <p class="organization">Regional Medical Center</p>
+            <p class="description">Procurement of advanced medical equipment including MRI machines, CT scanners, and patient monitoring systems.</p>
+            <div class="card-details">
+              <div class="value">
+                <i class="fas fa-dollar-sign"></i>
+                <span>$1M - $3M</span>
+              </div>
+              <span class="location">Texas, USA</span>
+            </div>
+            <div class="deadline">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: April 10, 2024</span>
+            </div>
+            <button class="btn btn-outline">View Details</button>
+          </div>
+
+          <div class="tender-card">
+            <div class="card-header">
+              <span class="status open">Open</span>
+              <span class="category">Consulting</span>
+            </div>
+            <h4>Environmental Impact Assessment</h4>
+            <p class="organization">Environmental Protection Agency</p>
+            <p class="description">Comprehensive environmental impact assessment for proposed industrial development including air quality, water impact, and biodiversity studies.</p>
+            <div class="card-details">
+              <div class="value">
+                <i class="fas fa-dollar-sign"></i>
+                <span>$200K - $500K</span>
+              </div>
+              <span class="location">Oregon, USA</span>
+            </div>
+            <div class="deadline">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: March 30, 2024</span>
+            </div>
+            <button class="btn btn-outline">View Details</button>
+          </div>
+
+          <div class="tender-card">
+            <div class="card-header">
+              <span class="status open">Open</span>
+              <span class="category">Construction</span>
+            </div>
+            <h4>Public School Renovation Project</h4>
+            <p class="organization">School District 42</p>
+            <p class="description">Complete renovation of elementary school facilities including classroom upgrades, HVAC system replacement, and playground construction.</p>
+            <div class="card-details">
+              <div class="value">
+                <i class="fas fa-dollar-sign"></i>
+                <span>$800K - $1.2M</span>
+              </div>
+              <span class="location">New York, USA</span>
+            </div>
+            <div class="deadline">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: May 5, 2024</span>
+            </div>
+            <button class="btn btn-outline">View Details</button>
+          </div>
+
+          <div class="tender-card">
+            <div class="card-header">
+              <span class="status closing-soon">Closing Soon</span>
+              <span class="category">IT Services</span>
+            </div>
+            <h4>Cybersecurity Assessment Services</h4>
+            <p class="organization">Department of Defense</p>
+            <p class="description">Comprehensive cybersecurity assessment and penetration testing services for government infrastructure systems.</p>
+            <div class="card-details">
+              <div class="value">
+                <i class="fas fa-dollar-sign"></i>
+                <span>$300K - $750K</span>
+              </div>
+              <span class="location">Washington, DC</span>
+            </div>
+            <div class="deadline">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: February 25, 2024</span>
+            </div>
+            <button class="btn btn-outline">View Details</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  </body>
+</html>

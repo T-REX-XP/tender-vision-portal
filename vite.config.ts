@@ -25,7 +25,8 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
-        tenders: path.resolve(__dirname, 'tenderList.html')
+        tenders: path.resolve(__dirname, 'tenderList.html'),
+        tenderDetails: path.resolve(__dirname, 'tenderDetails.html')
       },
       output: {
         entryFileNames: '[name].js',

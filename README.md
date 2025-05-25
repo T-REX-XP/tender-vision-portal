@@ -62,37 +62,42 @@ If you're using Fiddler Classic for debugging and want to intercept CSS/JS files
 3. **Enable "Enable rules" and "Unmatched requests passthrough"**
 4. **Add the following rules:**
 
-#### Using the Generic Pattern
+#### Generic Pattern (for applications with namespaces)
 ```
 REGEX:(.*?)((?'folder'css|html)(%252f|\/))?YOUR_NAMESPACE\.YOUR_CONTROL_NAME[\.\/](?'fname'[^?]*\.*)(.*?)$
 ```
 **Action:** Find a file... → Point to your local file or use `*drop` to block loading
+*Note: Replace YOUR_NAMESPACE.YOUR_CONTROL_NAME with your actual namespace and control names*
 
-#### CSS Files
+#### CSS Files (Universal)
 ```
 REGEX:(?inx).*\.css(\?.*)?$
 ```
 **Action:** Find a file... → Point to your local CSS file or use `*drop` to block CSS loading
 
-#### JavaScript Files
+#### JavaScript Files (Universal)
 ```
 REGEX:(?inx).*\.js(\?.*)?$
 ```
 **Action:** Find a file... → Point to your local JS file or use `*drop` to block JS loading
 
-#### Specific File Examples
+#### Specific File Examples (No namespace required)
 ```
-# For CSS files
+# For any CSS file
 REGEX:(?inx).*/app\.css(\?.*)?$
 # Action: C:\path\to\your\local\app.css
 
-# For JavaScript files  
+# For any JavaScript file  
 REGEX:(?inx).*/app\.js(\?.*)?$
 # Action: C:\path\to\your\local\app.js
 
 # For bundle files
 REGEX:(?inx).*/bundle\.js(\?.*)?$
 # Action: C:\path\to\your\local\bundle.js
+
+# For specific domains only
+REGEX:(?inx)^https://yoursite\.com/.*\.css(\?.*)?$
+# Action: C:\path\to\your\local\styles.css
 ```
 
 #### Useful Fiddler Actions
@@ -103,8 +108,8 @@ REGEX:(?inx).*/bundle\.js(\?.*)?$
 
 ### Tips for Fiddler Rules
 
-- Use the regex pattern `(?'folder'css|html)(%252f|\/)` for folder matching
-- Replace `YOUR_NAMESPACE.YOUR_CONTROL_NAME` with your specific namespace and control names
+- Use `(?inx)` for case-insensitive matching
+- For folder matching in namespaced applications, use `(?'folder'css|html)(%252f|\/)`
 - Add `(\?.*)?$` at the end to handle query parameters
 - Test your regex patterns in Fiddler's regex tester
 - Use specific paths when targeting particular environments

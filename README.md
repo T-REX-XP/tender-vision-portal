@@ -58,6 +58,7 @@ Here are all the npm commands available in this project:
 ### Development Commands
 - `npm run dev` - Start the development server with hot reload
 - `npm run build` - Build the project for production
+- `npm run build:watch` - Build the project and watch for changes (rebuilds automatically)
 - `npm run preview` - Preview the production build locally
 
 ### Code Quality Commands

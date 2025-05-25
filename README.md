@@ -1,3 +1,4 @@
+
 # Welcome to your Lovable project
 
 ## Project info
@@ -60,6 +61,17 @@ If you're using Fiddler Classic for debugging and want to intercept CSS/JS files
 2. **Go to AutoResponder tab**
 3. **Enable "Enable rules" and "Unmatched requests passthrough"**
 4. **Add the following rules:**
+
+#### Dynamic folder and filename approach (recommended)
+```
+# For tenders component with dynamic folder and filename matching
+REGEX:(.*?)((?'folder'css|js|html)(%252f|\/))?tenders\.(?'fname'[^?]*\.*)(.*?)$
+# Action: C:\path\to\your\local\tenders\${folder}\${fname}
+
+# Generic pattern for any component
+REGEX:(.*?)((?'folder'css|js|html)(%252f|\/))?YOUR_NAMESPACE\.YOUR_CONTROL_NAME[\.\/](?'fname'[^?]*\.*)(.*?)$
+# Action: C:\COMPONENT_ROOT_FOLDER\out\controls\YOUR_CONTROL_NAME\${folder}\${fname}
+```
 
 #### For your specific site (coop-tenders.powerappsportals.com)
 ```
@@ -140,6 +152,8 @@ REGEX:(?inx).*/main\.js\.map(\?.*)?$
 - Test your regex patterns in Fiddler's regex tester
 - Use `^` at the start to match from beginning of URL
 - Use specific domain patterns when targeting particular environments
+- Named capture groups like `(?'folder'...)` and `(?'fname'...)` allow dynamic file path construction
+- Use `${folder}` and `${fname}` in the action path to reference captured groups
 
 ## What technologies are used for this project?
 

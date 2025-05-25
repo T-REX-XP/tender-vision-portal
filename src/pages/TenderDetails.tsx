@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -7,6 +6,8 @@ import { TenderDetailsSection } from "@/components/TenderDetailsSection";
 import { BidSubmissionForm } from "@/components/BidSubmissionForm";
 import { CommunicationArea } from "@/components/CommunicationArea";
 import { SubmissionActions } from "@/components/SubmissionActions";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import { DEBUG_MODE, mockTenderDetails } from "@/config/debug";
 
 interface TenderDetails {
@@ -37,11 +38,14 @@ const fetchTenderDetails = async (id: string): Promise<TenderDetails> => {
     if (mockDetail) {
       return Promise.resolve(mockDetail);
     }
-    throw new Error('Tender not found in mock data');
+    throw new Error(`Tender with ID ${id} not found in mock data`);
   }
   
   const response = await fetch(`/api/tenders/${id}`);
   if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error(`Tender with ID ${id} not found`);
+    }
     throw new Error('Failed to fetch tender details');
   }
   return response.json();
@@ -64,6 +68,65 @@ const fetchBidData = async (tenderId: string): Promise<BidData | null> => {
   return response.json();
 };
 
+const TenderDetailsPlaceholder = () => {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+        <div className="bg-white rounded-lg shadow p-6">
+          <Skeleton className="h-8 w-3/4 mb-4" />
+          <div className="flex gap-2 mb-6">
+            <Skeleton className="h-6 w-16" />
+            <Skeleton className="h-6 w-24" />
+          </div>
+          <Skeleton className="h-4 w-full mb-2" />
+          <Skeleton className="h-4 w-full mb-2" />
+          <Skeleton className="h-4 w-2/3 mb-6" />
+          <Skeleton className="h-6 w-32 mb-4" />
+          <Skeleton className="h-4 w-48" />
+        </div>
+        
+        <div className="bg-white rounded-lg shadow p-6">
+          <Skeleton className="h-6 w-48 mb-4" />
+          <Skeleton className="h-32 w-full mb-4" />
+          <Skeleton className="h-10 w-32" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TenderNotFound = ({ tenderId }: { tenderId: string }) => {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="text-center py-12">
+          <div className="mb-6">
+            <div className="mx-auto w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-4">
+              <span className="text-gray-400 text-3xl">?</span>
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Tender Not Found</h1>
+            <p className="text-gray-600 mb-6">
+              The tender with ID "{tenderId}" could not be found or may have been removed.
+            </p>
+            <Button 
+              onClick={() => window.history.back()} 
+              variant="outline"
+              className="mr-4"
+            >
+              Go Back
+            </Button>
+            <Button asChild>
+              <a href="/tenders">Browse All Tenders</a>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const TenderDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [bidData, setBidData] = useState<BidData>({
@@ -74,10 +137,11 @@ const TenderDetails = () => {
     status: 'draft'
   });
 
-  const { data: tenderDetails, isLoading: tenderLoading } = useQuery({
+  const { data: tenderDetails, isLoading: tenderLoading, error: tenderError } = useQuery({
     queryKey: ['tender', id],
     queryFn: () => fetchTenderDetails(id!),
-    enabled: !!id
+    enabled: !!id,
+    retry: false
   });
 
   const { data: existingBid, isLoading: bidLoading } = useQuery({
@@ -120,25 +184,11 @@ const TenderDetails = () => {
   };
 
   if (tenderLoading || bidLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="animate-pulse">Loading tender details...</div>
-        </div>
-      </div>
-    );
+    return <TenderDetailsPlaceholder />;
   }
 
-  if (!tenderDetails) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="text-center text-red-600">Tender not found</div>
-        </div>
-      </div>
-    );
+  if (tenderError || !tenderDetails) {
+    return <TenderNotFound tenderId={id || 'unknown'} />;
   }
 
   return (

@@ -3,6 +3,7 @@ import { Calendar, DollarSign } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface Tender {
   id: number;
@@ -21,6 +22,8 @@ interface TenderCardProps {
 }
 
 export const TenderCard = ({ tender }: TenderCardProps) => {
+  const navigate = useNavigate();
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Open":
@@ -30,6 +33,10 @@ export const TenderCard = ({ tender }: TenderCardProps) => {
       default:
         return "bg-gray-100 text-gray-800 border-gray-200";
     }
+  };
+
+  const handleViewDetails = () => {
+    navigate(`/tender/${tender.id}`);
   };
 
   return (
@@ -63,7 +70,7 @@ export const TenderCard = ({ tender }: TenderCardProps) => {
             <span>Deadline: {new Date(tender.deadline).toLocaleDateString()}</span>
           </div>
         </div>
-        <Button className="w-full mt-4" variant="outline">
+        <Button className="w-full mt-4" variant="outline" onClick={handleViewDetails}>
           View Details
         </Button>
       </CardContent>

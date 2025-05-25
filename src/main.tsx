@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/tenders" element={<TenderList />} />
-        <Route path="/tenders/:id" element={<TenderDetails />} />
+        <Route path="/tender-details" element={<TenderDetails />} />
       </Routes>
     </BrowserRouter>
   </QueryClientProvider>

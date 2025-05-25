@@ -36,7 +36,7 @@ export const TenderCard = ({ tender }: TenderCardProps) => {
   };
 
   const handleViewDetails = () => {
-    navigate(`/tenders/${tender.id}`);
+    navigate(`/tender-details?id=${tender.id}`);
   };
 
   return (

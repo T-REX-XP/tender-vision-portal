@@ -76,17 +76,17 @@ REGEX:(?inx).*\.js(\?.*)?$
 
 #### Specific File Examples
 ```
-# For main application CSS
-REGEX:(?inx).*/styles\.css(\?.*)?$
-# Action: C:\path\to\your\local\styles.css
+# For CSS files
+REGEX:(?inx).*/app\.css(\?.*)?$
+# Action: C:\path\to\your\local\app.css
 
-# For main application JS
-REGEX:(?inx).*/main\.js(\?.*)?$
-# Action: C:\path\to\your\local\main.js
+# For JavaScript files  
+REGEX:(?inx).*/app\.js(\?.*)?$
+# Action: C:\path\to\your\local\app.js
 
-# For specific component files
-REGEX:(?inx).*/tenderList\.css(\?.*)?$
-# Action: C:\path\to\your\local\tenderList.css
+# For bundle files
+REGEX:(?inx).*/bundle\.js(\?.*)?$
+# Action: C:\path\to\your\local\bundle.js
 ```
 
 #### Useful Fiddler Actions

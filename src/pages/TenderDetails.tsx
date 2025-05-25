@@ -7,6 +7,7 @@ import { TenderDetailsSection } from "@/components/TenderDetailsSection";
 import { BidSubmissionForm } from "@/components/BidSubmissionForm";
 import { CommunicationArea } from "@/components/CommunicationArea";
 import { SubmissionActions } from "@/components/SubmissionActions";
+import { DEBUG_MODE, mockTenderDetails } from "@/config/debug";
 
 interface TenderDetails {
   id: number;
@@ -29,6 +30,16 @@ interface BidData {
 }
 
 const fetchTenderDetails = async (id: string): Promise<TenderDetails> => {
+  // Return mock data if in debug mode
+  if (DEBUG_MODE) {
+    console.log("Debug mode enabled - using mock tender details data");
+    const mockDetail = mockTenderDetails.find(t => t.id === parseInt(id));
+    if (mockDetail) {
+      return Promise.resolve(mockDetail);
+    }
+    throw new Error('Tender not found in mock data');
+  }
+  
   const response = await fetch(`/api/tenders/${id}`);
   if (!response.ok) {
     throw new Error('Failed to fetch tender details');
@@ -37,6 +48,12 @@ const fetchTenderDetails = async (id: string): Promise<TenderDetails> => {
 };
 
 const fetchBidData = async (tenderId: string): Promise<BidData | null> => {
+  // Return null for mock data (no existing bids in debug mode)
+  if (DEBUG_MODE) {
+    console.log("Debug mode enabled - no existing bid data");
+    return Promise.resolve(null);
+  }
+  
   const response = await fetch(`/api/bids/tender/${tenderId}`);
   if (response.status === 404) {
     return null; // No existing bid
@@ -85,6 +102,12 @@ const TenderDetails = () => {
   };
 
   const handleSubmitBid = async () => {
+    if (DEBUG_MODE) {
+      console.log("Debug mode - simulating bid submission");
+      setBidData(prev => ({ ...prev, status: 'submitted' }));
+      return;
+    }
+    
     const response = await fetch(`/api/bids`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

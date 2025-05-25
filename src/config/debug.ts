@@ -70,3 +70,38 @@ export const mockTenders = [
     location: "Cook County, IL"
   }
 ];
+
+export const mockTenderDetails = [
+  {
+    id: 1,
+    title: "Office Supplies Procurement",
+    description: "Annual procurement of office supplies including paper, pens, and basic office equipment for municipal buildings. This tender includes:\n\n- Paper products (A4, letterhead, envelopes)\n- Writing instruments (pens, pencils, markers)\n- Office equipment (staplers, hole punchers, calculators)\n- Filing supplies (folders, binders, labels)\n- Computer accessories (USB drives, cables, adapters)\n\nAll supplies must meet municipal quality standards and be delivered within 30 days of order placement.",
+    deadline: "2024-02-15T23:59:59Z",
+    status: "Open",
+    complexityLevel: "Low",
+    documents: [
+      { name: "Tender Specification.pdf", url: "/documents/tender-1-spec.pdf" },
+      { name: "Terms and Conditions.pdf", url: "/documents/tender-1-terms.pdf" }
+    ],
+    requirements: [
+      { id: 1, question: "Describe your company's experience with municipal supply contracts", type: "text" },
+      { id: 2, question: "What is your proposed delivery timeline?", type: "dropdown", options: ["15 days", "30 days", "45 days"] },
+      { id: 3, question: "Do you provide bulk discounts for large orders?", type: "dropdown", options: ["Yes", "No"] }
+    ]
+  },
+  {
+    id: 2,
+    title: "Road Maintenance Services",
+    description: "Comprehensive road maintenance including pothole repair, line painting, and general road surface maintenance for county roads.",
+    deadline: "2024-01-30T23:59:59Z",
+    status: "Closing Soon",
+    complexityLevel: "Medium",
+    documents: [
+      { name: "Road Maintenance Specifications.pdf", url: "/documents/tender-2-spec.pdf" }
+    ],
+    requirements: [
+      { id: 1, question: "Describe your equipment and crew capacity", type: "text" },
+      { id: 2, question: "What is your experience with road maintenance?", type: "text" }
+    ]
+  }
+];

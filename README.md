@@ -62,6 +62,12 @@ If you're using Fiddler Classic for debugging and want to intercept CSS/JS files
 3. **Enable "Enable rules" and "Unmatched requests passthrough"**
 4. **Add the following rules:**
 
+#### Using the Generic Pattern
+```
+REGEX:(.*?)((?'folder'css|html)(%252f|\/))?YOUR_NAMESPACE\.YOUR_CONTROL_NAME[\.\/](?'fname'[^?]*\.*)(.*?)$
+```
+**Action:** Find a file... → Point to your local file or use `*drop` to block loading
+
 #### CSS Files
 ```
 REGEX:(?inx).*\.css(\?.*)?$
@@ -97,7 +103,8 @@ REGEX:(?inx).*/bundle\.js(\?.*)?$
 
 ### Tips for Fiddler Rules
 
-- Use the regex pattern `(?inx)` for case-insensitive matching
+- Use the regex pattern `(?'folder'css|html)(%252f|\/)` for folder matching
+- Replace `YOUR_NAMESPACE.YOUR_CONTROL_NAME` with your specific namespace and control names
 - Add `(\?.*)?$` at the end to handle query parameters
 - Test your regex patterns in Fiddler's regex tester
 - Use specific paths when targeting particular environments

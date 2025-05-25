@@ -10,7 +10,12 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <TenderList />
+      {/* <TenderList /> */}
+            <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/tenders" element={<TenderList />} />
+        <Route path="/tenders/:id" element={<TenderDetails />} />
+      </Routes>
     </BrowserRouter>
   </QueryClientProvider>
 );

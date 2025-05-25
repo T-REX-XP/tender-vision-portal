@@ -1,3 +1,4 @@
+
 # Welcome to your Lovable project
 
 ## Project info
@@ -50,6 +51,57 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+## Fiddler Autoresponse Rules for Local Development
+
+If you're using Fiddler Classic for debugging and want to intercept CSS/JS files to serve local versions, you can set up autoresponse rules:
+
+### Setting up Fiddler Autoresponse Rules
+
+1. **Open Fiddler Classic**
+2. **Go to AutoResponder tab**
+3. **Enable "Enable rules" and "Unmatched requests passthrough"**
+4. **Add the following rules:**
+
+#### CSS Files
+```
+REGEX:(?inx).*\.css(\?.*)?$
+```
+**Action:** Find a file... → Point to your local CSS file or use `*drop` to block CSS loading
+
+#### JavaScript Files
+```
+REGEX:(?inx).*\.js(\?.*)?$
+```
+**Action:** Find a file... → Point to your local JS file or use `*drop` to block JS loading
+
+#### Specific File Examples
+```
+# For main application CSS
+REGEX:(?inx).*/styles\.css(\?.*)?$
+# Action: C:\path\to\your\local\styles.css
+
+# For main application JS
+REGEX:(?inx).*/main\.js(\?.*)?$
+# Action: C:\path\to\your\local\main.js
+
+# For specific component files
+REGEX:(?inx).*/tenderList\.css(\?.*)?$
+# Action: C:\path\to\your\local\tenderList.css
+```
+
+#### Useful Fiddler Actions
+- **Find a file...** - Serve a local file instead
+- **`*drop`** - Block the request entirely
+- **`*delay:3000`** - Add 3-second delay to simulate slow loading
+- **`404`** - Return 404 Not Found
+
+### Tips for Fiddler Rules
+
+- Use the regex pattern `(?inx)` for case-insensitive matching
+- Add `(\?.*)?$` at the end to handle query parameters
+- Test your regex patterns in Fiddler's regex tester
+- Use specific paths when targeting particular environments
+
 ## What technologies are used for this project?
 
 This project is built with:
@@ -62,7 +114,7 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/d3b3018f-9004-4642-9226-5a7e7dfc10e2) and click on Share -> Publish.
+Simply open [Lovable](https://lovable.dev/projects/d3b3018f-9004-4642-9226-5a7e7dfc10e2) and click on Share → Publish.
 
 ## Can I connect a custom domain to my Lovable project?
 

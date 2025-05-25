@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Building2, Search, FileText, Award } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
@@ -13,9 +14,9 @@ const Landing = () => {
               <Building2 className="h-8 w-8 text-blue-600" />
               <h1 className="text-xl font-bold text-gray-900">TenderPortal</h1>
             </div>
-            <a href="tenderList.html">
+            <Link to="/tenders">
               <Button>Browse Tenders</Button>
-            </a>
+            </Link>
           </div>
         </div>
       </header>
@@ -35,11 +36,11 @@ const Landing = () => {
             Access thousands of tender opportunities from government agencies and organizations. 
             Discover contracts that match your business expertise and grow your company.
           </p>
-          <a href="tenderList.html">
+          <Link to="/tenders">
             <Button size="lg" className="text-lg px-8 py-4">
               Explore Tenders Now
             </Button>
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -90,11 +91,11 @@ const Landing = () => {
           <p className="text-xl text-blue-100 mb-8">
             Join thousands of businesses finding opportunities through TenderPortal.
           </p>
-          <a href="tenderList.html">
+          <Link to="/tenders">
             <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
               Start Browsing Tenders
             </Button>
-          </a>
+          </Link>
         </div>
       </section>
 

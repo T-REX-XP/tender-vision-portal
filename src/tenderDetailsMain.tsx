@@ -20,7 +20,7 @@ createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <Routes>
-        <Route path="/tender/:id" element={<TenderDetails />} />
+        <Route path="/tenders/:id" element={<TenderDetails />} />
         <Route path="*" element={<TenderDetails />} />
       </Routes>
     </BrowserRouter>

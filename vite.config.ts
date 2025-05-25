@@ -14,10 +14,7 @@ export default defineConfig(({ mode }) => ({
     }
   },
   plugins: [
-    react({
-      // Enable Fast Refresh for better HMR
-      fastRefresh: true
-    }),
+    react(), // Fast Refresh is enabled by default with @vitejs/plugin-react-swc
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),

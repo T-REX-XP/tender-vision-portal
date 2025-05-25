@@ -62,42 +62,45 @@ If you're using Fiddler Classic for debugging and want to intercept CSS/JS files
 3. **Enable "Enable rules" and "Unmatched requests passthrough"**
 4. **Add the following rules:**
 
-#### Generic Pattern (for applications with namespaces)
+#### For your specific site (coop-tenders.powerappsportals.com)
 ```
-REGEX:(.*?)((?'folder'css|html)(%252f|\/))?YOUR_NAMESPACE\.YOUR_CONTROL_NAME[\.\/](?'fname'[^?]*\.*)(.*?)$
-```
-**Action:** Find a file... → Point to your local file or use `*drop` to block loading
-*Note: Replace YOUR_NAMESPACE.YOUR_CONTROL_NAME with your actual namespace and control names*
+# For tenders.js specifically
+REGEX:(?inx)^https://coop-tenders\.powerappsportals\.com/tenders\.js(\?.*)?$
+# Action: C:\path\to\your\local\tenders.js
 
-#### CSS Files (Universal)
-```
-REGEX:(?inx).*\.css(\?.*)?$
-```
-**Action:** Find a file... → Point to your local CSS file or use `*drop` to block CSS loading
+# For any JS file from your domain
+REGEX:(?inx)^https://coop-tenders\.powerappsportals\.com/.*\.js(\?.*)?$
+# Action: C:\path\to\your\local\file.js
 
-#### JavaScript Files (Universal)
+# For any CSS file from your domain
+REGEX:(?inx)^https://coop-tenders\.powerappsportals\.com/.*\.css(\?.*)?$
+# Action: C:\path\to\your\local\file.css
 ```
+
+#### Universal patterns (for any domain)
+```
+# For any JavaScript file
 REGEX:(?inx).*\.js(\?.*)?$
-```
-**Action:** Find a file... → Point to your local JS file or use `*drop` to block JS loading
-
-#### Specific File Examples (No namespace required)
-```
-# For any CSS file
-REGEX:(?inx).*/app\.css(\?.*)?$
-# Action: C:\path\to\your\local\app.css
-
-# For any JavaScript file  
-REGEX:(?inx).*/app\.js(\?.*)?$
 # Action: C:\path\to\your\local\app.js
+
+# For any CSS file
+REGEX:(?inx).*\.css(\?.*)?$
+# Action: C:\path\to\your\local\app.css
+```
+
+#### Specific file examples
+```
+# For specific JS files by name
+REGEX:(?inx).*/tenders\.js(\?.*)?$
+# Action: C:\path\to\your\local\tenders.js
 
 # For bundle files
 REGEX:(?inx).*/bundle\.js(\?.*)?$
 # Action: C:\path\to\your\local\bundle.js
 
-# For specific domains only
-REGEX:(?inx)^https://yoursite\.com/.*\.css(\?.*)?$
-# Action: C:\path\to\your\local\styles.css
+# For main app files
+REGEX:(?inx).*/main\.js(\?.*)?$
+# Action: C:\path\to\your\local\main.js
 ```
 
 #### Useful Fiddler Actions
@@ -109,10 +112,11 @@ REGEX:(?inx)^https://yoursite\.com/.*\.css(\?.*)?$
 ### Tips for Fiddler Rules
 
 - Use `(?inx)` for case-insensitive matching
-- For folder matching in namespaced applications, use `(?'folder'css|html)(%252f|\/)`
+- Escape dots in domain names with backslashes (`\.`)
 - Add `(\?.*)?$` at the end to handle query parameters
 - Test your regex patterns in Fiddler's regex tester
-- Use specific paths when targeting particular environments
+- Use `^` at the start to match from beginning of URL
+- Use specific domain patterns when targeting particular environments
 
 ## What technologies are used for this project?
 

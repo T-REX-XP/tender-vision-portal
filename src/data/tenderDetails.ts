@@ -2,129 +2,135 @@
 export const tenderDetails = [
   {
     id: 1,
-    title: "Fresh Produce Supply Contract",
-    description: "Supply of fresh fruits and vegetables for 50+ FreshMart store locations including organic and conventional produce. This contract covers:\n\n- Seasonal fruits (apples, oranges, berries, tropical fruits)\n- Fresh vegetables (leafy greens, root vegetables, specialty items)\n- Organic produce selection (minimum 30% of total volume)\n- Locally sourced items where possible\n- Quality assurance and traceability systems\n- Daily delivery schedules to multiple locations\n\nAll suppliers must be GAP certified and provide cold chain documentation. Products must meet FreshMart quality standards with 95% acceptance rate.",
+    title: "Corporate Uniform Supply 2024-2026",
+    description: "Supply of corporate uniforms for all front-line staff including shirts, jackets, and accessories. This comprehensive uniform program covers:\n\n- Professional polo shirts and dress shirts in corporate colors\n- Blazers and jackets for customer-facing roles\n- Seasonal variations for summer and winter collections\n- Accessories including ties, scarves, and name badges\n- Size range from XS to 5XL to accommodate all employees\n- Sustainable and eco-friendly fabric options\n- Custom embroidery with company logo and employee names\n\nAll uniforms must meet corporate brand guidelines and provide professional appearance standards. Fabrics should be durable, easy-care, and suitable for business environment.",
+    deadline: "2024-03-15T23:59:59Z",
+    status: "Open",
+    complexityLevel: "Medium",
+    documents: [
+      { name: "Uniform Specifications.pdf", url: "/documents/tender-1-spec.pdf" },
+      { name: "Brand Guidelines.pdf", url: "/documents/tender-1-brand.pdf" },
+      { name: "Size Chart Requirements.pdf", url: "/documents/tender-1-sizes.pdf" }
+    ],
+    requirements: [
+      { id: 1, question: "Describe your manufacturing capabilities and quality control processes", type: "text" as const },
+      { id: 2, question: "Can you provide sustainable fabric options?", type: "dropdown" as const, options: ["Yes", "No", "Limited options"] },
+      { id: 3, question: "What is your typical delivery timeline for bulk orders?", type: "dropdown" as const, options: ["2-4 weeks", "4-6 weeks", "6-8 weeks", "8+ weeks"] },
+      { id: 4, question: "Do you offer custom embroidery and branding services?", type: "dropdown" as const, options: ["Yes", "No", "Through partner"] }
+    ]
+  },
+  {
+    id: 26,
+    title: "Annual Marketing Campaign 2024",
+    description: "Comprehensive marketing campaign including digital, print, and outdoor advertising. This integrated campaign includes:\n\n- Digital marketing across social media platforms\n- Search engine optimization and pay-per-click advertising\n- Print advertisements in industry publications\n- Outdoor advertising including billboards and transit ads\n- Content creation for website and social media\n- Email marketing campaigns and automation\n- Brand awareness and lead generation objectives\n- Multi-channel attribution and analytics tracking\n\nCampaign should align with corporate messaging and brand identity while targeting key customer segments. ROI measurement and reporting are essential requirements.",
     deadline: "2024-02-20T23:59:59Z",
     status: "Open",
-    complexityLevel: "Medium",
-    documents: [
-      { name: "Product Specifications.pdf", url: "/documents/tender-1-spec.pdf" },
-      { name: "Quality Standards.pdf", url: "/documents/tender-1-quality.pdf" },
-      { name: "Delivery Schedule Template.pdf", url: "/documents/tender-1-delivery.pdf" }
-    ],
-    requirements: [
-      { id: 1, question: "Describe your agricultural certifications and quality control processes", type: "text" as const },
-      { id: 2, question: "What percentage of your produce is organic?", type: "dropdown" as const, options: ["Less than 10%", "10-30%", "30-50%", "More than 50%"] },
-      { id: 3, question: "Can you provide daily deliveries to 50+ locations?", type: "dropdown" as const, options: ["Yes", "No", "With additional logistics partner"] },
-      { id: 4, question: "Do you have cold storage and transport capabilities?", type: "dropdown" as const, options: ["Yes", "No", "Partial"] }
-    ]
-  },
-  {
-    id: 51,
-    title: "Dairy Products Procurement",
-    description: "Supply of dairy products including milk, cheese, yogurt, and other refrigerated items for FreshMart supermarket chain. Product categories include:\n\n- Fresh milk (whole, 2%, skim, organic varieties)\n- Cheese products (block, sliced, specialty, imported)\n- Yogurt and cultured products (regular, Greek, organic)\n- Butter and margarine products\n- Cream and specialty dairy items\n- Plant-based dairy alternatives\n\nAll products must maintain strict cold chain requirements and have minimum 7-day shelf life upon delivery. HACCP certification required.",
-    deadline: "2024-01-25T23:59:59Z",
-    status: "Closing Soon",
-    complexityLevel: "Medium",
-    documents: [
-      { name: "Dairy Product Specifications.pdf", url: "/documents/tender-51-spec.pdf" },
-      { name: "Cold Chain Requirements.pdf", url: "/documents/tender-51-coldchain.pdf" }
-    ],
-    requirements: [
-      { id: 1, question: "Describe your dairy processing facilities and certifications", type: "text" as const },
-      { id: 2, question: "What is your typical product shelf life guarantee?", type: "dropdown" as const, options: ["5-7 days", "7-10 days", "10-14 days", "14+ days"] },
-      { id: 3, question: "Do you offer plant-based dairy alternatives?", type: "dropdown" as const, options: ["Yes", "No", "Limited selection"] }
-    ]
-  },
-  {
-    id: 101,
-    title: "Fresh Meat Supply Contract",
-    description: "Fresh beef, pork, and poultry for grocery chain locations. This comprehensive meat supply contract includes:\n\n- Premium beef cuts (steaks, roasts, ground beef)\n- Pork products (chops, bacon, sausages)\n- Poultry (whole chickens, parts, ground turkey)\n- Specialty meats (lamb, veal, game meats)\n- Organic and grass-fed options\n- Custom butchering services\n\nAll meat must be USDA inspected and certified. Temperature control and food safety protocols are mandatory. Delivery schedule must accommodate peak shopping periods.",
-    deadline: "2024-03-01T23:59:59Z",
-    status: "Open",
     complexityLevel: "High",
     documents: [
-      { name: "Meat Quality Standards.pdf", url: "/documents/tender-101-quality.pdf" },
-      { name: "Food Safety Requirements.pdf", url: "/documents/tender-101-safety.pdf" },
-      { name: "Delivery Specifications.pdf", url: "/documents/tender-101-delivery.pdf" }
+      { name: "Campaign Brief.pdf", url: "/documents/tender-26-brief.pdf" },
+      { name: "Target Audience Analysis.pdf", url: "/documents/tender-26-audience.pdf" },
+      { name: "Brand Guidelines.pdf", url: "/documents/tender-26-brand.pdf" }
     ],
     requirements: [
-      { id: 1, question: "Describe your meat processing facility certifications", type: "text" as const },
-      { id: 2, question: "What percentage of your meat is organic or grass-fed?", type: "dropdown" as const, options: ["Less than 10%", "10-25%", "25-50%", "More than 50%"] },
-      { id: 3, question: "Can you provide custom butchering services?", type: "dropdown" as const, options: ["Yes", "No", "Limited services"] },
-      { id: 4, question: "What is your cold chain transport capacity?", type: "text" as const }
+      { id: 1, question: "Describe your experience with integrated marketing campaigns", type: "text" as const },
+      { id: 2, question: "What analytics and reporting tools do you use?", type: "text" as const },
+      { id: 3, question: "Can you provide campaign performance guarantees?", type: "dropdown" as const, options: ["Yes", "No", "Performance-based pricing"] },
+      { id: 4, question: "What is your approach to multi-channel attribution?", type: "text" as const }
     ]
   },
   {
-    id: 161,
-    title: "Packaged Foods Contract",
-    description: "Supply of packaged and canned goods for FreshMart grocery chain including snacks, cereals, and canned vegetables. Product categories include:\n\n- Breakfast cereals and granola products\n- Snack foods (chips, crackers, nuts, bars)\n- Canned vegetables and fruits\n- Pasta, rice, and grain products\n- Condiments and sauces\n- Baking ingredients and supplies\n- Health and specialty diet products\n\nProducts must have minimum 6-month shelf life and meet all FDA labeling requirements. Private label options preferred for select categories.",
+    id: 56,
+    title: "Enterprise Software License Renewal",
+    description: "Renewal of enterprise software licenses including Microsoft Office 365, Adobe Creative Suite. This licensing package covers:\n\n- Microsoft Office 365 Business Premium (500 users)\n- Adobe Creative Cloud for Teams (50 users)\n- Microsoft Project and Visio licenses (25 users)\n- Security and compliance add-ons\n- SharePoint and OneDrive storage expansion\n- Microsoft Teams Phone System licenses\n- Power Platform licensing for business applications\n- Technical support and training services\n\nAll licenses must include enterprise-grade security features and administrative controls. Volume licensing discounts and multi-year agreements preferred.",
+    deadline: "2024-03-01T23:59:59Z",
+    status: "Open",
+    complexityLevel: "Medium",
+    documents: [
+      { name: "Current License Inventory.pdf", url: "/documents/tender-56-inventory.pdf" },
+      { name: "Technical Requirements.pdf", url: "/documents/tender-56-tech.pdf" },
+      { name: "Compliance Requirements.pdf", url: "/documents/tender-56-compliance.pdf" }
+    ],
+    requirements: [
+      { id: 1, question: "Are you an authorized Microsoft and Adobe reseller?", type: "dropdown" as const, options: ["Yes", "No", "Microsoft only", "Adobe only"] },
+      { id: 2, question: "What volume licensing discounts can you provide?", type: "text" as const },
+      { id: 3, question: "Do you offer license optimization consulting?", type: "dropdown" as const, options: ["Yes", "No", "For additional fee"] },
+      { id: 4, question: "What support services are included with licenses?", type: "text" as const }
+    ]
+  },
+  {
+    id: 91,
+    title: "Annual Office Supplies Contract",
+    description: "Annual supply of office stationery, paper, and basic office equipment. This comprehensive office supply contract includes:\n\n- Paper products (A4, letterhead, envelopes, specialty papers)\n- Writing instruments (pens, pencils, markers, highlighters)\n- Office equipment (staplers, hole punchers, calculators)\n- Filing supplies (folders, binders, labels, storage boxes)\n- Computer accessories (USB drives, cables, adapters)\n- Break room supplies (paper cups, napkins, coffee filters)\n- Cleaning supplies for office spaces\n- Delivery schedule: weekly shipments to multiple locations\n\nAll products must meet quality standards and be delivered on schedule. Preference for environmentally friendly and sustainable products.",
+    deadline: "2024-02-29T23:59:59Z",
+    status: "Open",
+    complexityLevel: "Low",
+    documents: [
+      { name: "Product Catalog Requirements.pdf", url: "/documents/tender-91-catalog.pdf" },
+      { name: "Delivery Schedule.pdf", url: "/documents/tender-91-delivery.pdf" },
+      { name: "Quality Standards.pdf", url: "/documents/tender-91-quality.pdf" }
+    ],
+    requirements: [
+      { id: 1, question: "Describe your product sourcing and quality assurance", type: "text" as const },
+      { id: 2, question: "Can you provide eco-friendly product alternatives?", type: "dropdown" as const, options: ["Yes", "No", "Limited selection"] },
+      { id: 3, question: "What is your delivery capacity for multiple locations?", type: "dropdown" as const, options: ["Daily", "Weekly", "Bi-weekly", "Monthly"] },
+      { id: 4, question: "Do you offer inventory management services?", type: "dropdown" as const, options: ["Yes", "No", "For additional fee"] }
+    ]
+  },
+  {
+    id: 116,
+    title: "Building Maintenance Services 2024-2026",
+    description: "Comprehensive building maintenance including HVAC, electrical, and plumbing services. This facilities management contract covers:\n\n- Preventive maintenance schedules for all building systems\n- Emergency repair services with 24/7 availability\n- HVAC system maintenance and filter replacements\n- Electrical system inspections and repairs\n- Plumbing maintenance and emergency services\n- Building security system maintenance\n- Elevator and escalator servicing\n- Lighting maintenance and energy-efficient upgrades\n- Compliance with building codes and safety regulations\n\nContractor must have certified technicians and appropriate insurance coverage. Response time for emergency calls must be within 2 hours.",
+    deadline: "2024-02-10T23:59:59Z",
+    status: "Closing Soon",
+    complexityLevel: "High",
+    documents: [
+      { name: "Building Systems Overview.pdf", url: "/documents/tender-116-systems.pdf" },
+      { name: "Maintenance Schedules.pdf", url: "/documents/tender-116-schedules.pdf" },
+      { name: "Emergency Response Procedures.pdf", url: "/documents/tender-116-emergency.pdf" }
+    ],
+    requirements: [
+      { id: 1, question: "Describe your technician certifications and qualifications", type: "text" as const },
+      { id: 2, question: "What is your emergency response time guarantee?", type: "dropdown" as const, options: ["1 hour", "2 hours", "4 hours", "Next business day"] },
+      { id: 3, question: "Do you provide preventive maintenance scheduling software?", type: "dropdown" as const, options: ["Yes", "No", "Third-party integration"] },
+      { id: 4, question: "What insurance coverage do you maintain?", type: "text" as const }
+    ]
+  },
+  {
+    id: 146,
+    title: "Employee Cafeteria Services",
+    description: "Daily cafeteria and meal services for all corporate locations. This comprehensive food service contract includes:\n\n- Breakfast, lunch, and dinner service options\n- Healthy menu options with nutritional information\n- Dietary accommodations (vegetarian, vegan, gluten-free)\n- Seasonal menu variations and special event catering\n- Fresh food preparation with local ingredient sourcing\n- Beverage service including coffee, tea, and soft drinks\n- Catering for meetings and corporate events\n- Food safety compliance and staff training\n- Sustainable packaging and waste reduction practices\n\nAll food service staff must be properly trained and certified. Menu pricing should be competitive with subsidized employee rates.",
     deadline: "2024-02-28T23:59:59Z",
     status: "Open",
-    complexityLevel: "Low",
-    documents: [
-      { name: "Product Category List.pdf", url: "/documents/tender-161-categories.pdf" },
-      { name: "Private Label Guidelines.pdf", url: "/documents/tender-161-private-label.pdf" },
-      { name: "Nutritional Requirements.pdf", url: "/documents/tender-161-nutrition.pdf" }
-    ],
-    requirements: [
-      { id: 1, question: "Describe your manufacturing capabilities and food safety certifications", type: "text" as const },
-      { id: 2, question: "Can you provide private label manufacturing services?", type: "dropdown" as const, options: ["Yes", "No", "For select products only"] },
-      { id: 3, question: "What is your typical order fulfillment time?", type: "dropdown" as const, options: ["1-2 days", "3-5 days", "1-2 weeks", "2-4 weeks"] },
-      { id: 4, question: "Do you offer organic or specialty diet product lines?", type: "dropdown" as const, options: ["Yes", "No", "Limited selection"] }
-    ]
-  },
-  {
-    id: 266,
-    title: "Office Supplies Procurement",
-    description: "Annual procurement of office supplies including paper, pens, and basic office equipment for municipal buildings. This tender includes:\n\n- Paper products (A4, letterhead, envelopes)\n- Writing instruments (pens, pencils, markers)\n- Office equipment (staplers, hole punchers, calculators)\n- Filing supplies (folders, binders, labels)\n- Computer accessories (USB drives, cables, adapters)\n\nAll supplies must meet municipal quality standards and be delivered within 30 days of order placement.",
-    deadline: "2024-02-15T23:59:59Z",
-    status: "Open",
-    complexityLevel: "Low",
-    documents: [
-      { name: "Tender Specification.pdf", url: "/documents/tender-266-spec.pdf" },
-      { name: "Terms and Conditions.pdf", url: "/documents/tender-266-terms.pdf" }
-    ],
-    requirements: [
-      { id: 1, question: "Describe your company's experience with municipal supply contracts", type: "text" as const },
-      { id: 2, question: "What is your proposed delivery timeline?", type: "dropdown" as const, options: ["15 days", "30 days", "45 days"] },
-      { id: 3, question: "Do you provide bulk discounts for large orders?", type: "dropdown" as const, options: ["Yes", "No"] }
-    ]
-  },
-  {
-    id: 276,
-    title: "Road Maintenance Services",
-    description: "Comprehensive road maintenance including pothole repair, line painting, and general road surface maintenance for county roads. Services include:\n\n- Pothole repair and road patching\n- Road line painting and marking\n- Surface crack sealing\n- Minor resurfacing projects\n- Traffic sign maintenance\n- Snow removal and de-icing services\n\nContractor must have appropriate equipment, certified crew, and insurance coverage. Work must comply with DOT standards and safety regulations.",
-    deadline: "2024-01-30T23:59:59Z",
-    status: "Closing Soon",
     complexityLevel: "Medium",
     documents: [
-      { name: "Road Maintenance Specifications.pdf", url: "/documents/tender-276-spec.pdf" },
-      { name: "Safety Requirements.pdf", url: "/documents/tender-276-safety.pdf" }
+      { name: "Menu Requirements.pdf", url: "/documents/tender-146-menu.pdf" },
+      { name: "Food Safety Standards.pdf", url: "/documents/tender-146-safety.pdf" },
+      { name: "Facility Specifications.pdf", url: "/documents/tender-146-facility.pdf" }
     ],
     requirements: [
-      { id: 1, question: "Describe your equipment and crew capacity", type: "text" as const },
-      { id: 2, question: "What is your experience with road maintenance?", type: "text" as const },
-      { id: 3, question: "Do you provide emergency response services?", type: "dropdown" as const, options: ["Yes", "No", "Limited availability"] }
+      { id: 1, question: "Describe your food safety certifications and procedures", type: "text" as const },
+      { id: 2, question: "Can you accommodate special dietary requirements?", type: "dropdown" as const, options: ["Yes", "Limited", "No"] },
+      { id: 3, question: "What is your approach to sustainable food service?", type: "text" as const },
+      { id: 4, question: "Do you offer nutrition consulting services?", type: "dropdown" as const, options: ["Yes", "No", "Through partner"] }
     ]
   },
   {
-    id: 286,
-    title: "IT Infrastructure Upgrade",
-    description: "Upgrade of network infrastructure, servers, and security systems for educational facilities. This comprehensive project includes:\n\n- Network hardware refresh (switches, routers, firewalls)\n- Server infrastructure modernization\n- Cybersecurity enhancement systems\n- Wireless network expansion\n- Cloud migration services\n- Staff training and documentation\n\nAll equipment must meet state education standards and include 3-year warranty. Implementation timeline is 6 months with phased rollout to minimize disruption.",
-    deadline: "2024-03-01T23:59:59Z",
-    status: "Open",
+    id: 166,
+    title: "Corporate Security Services 2024-2026",
+    description: "24/7 security services for all corporate facilities and data centers. This comprehensive security contract includes:\n\n- Manned security posts at main entrances and lobbies\n- Mobile patrol services for parking areas and perimeters\n- Data center security with restricted access protocols\n- Emergency response and incident management\n- Security system monitoring and alarm response\n- Background-checked and licensed security personnel\n- Regular security assessments and reporting\n- Coordination with local law enforcement when required\n- Executive protection services as needed\n\nAll security personnel must be properly licensed and trained. Response protocols must align with corporate emergency procedures.",
+    deadline: "2024-02-05T23:59:59Z",
+    status: "Closing Soon",
     complexityLevel: "High",
     documents: [
-      { name: "Technical Specifications.pdf", url: "/documents/tender-286-spec.pdf" },
-      { name: "Security Requirements.pdf", url: "/documents/tender-286-security.pdf" },
-      { name: "Implementation Timeline.pdf", url: "/documents/tender-286-timeline.pdf" }
+      { name: "Security Requirements.pdf", url: "/documents/tender-166-requirements.pdf" },
+      { name: "Site Locations.pdf", url: "/documents/tender-166-locations.pdf" },
+      { name: "Emergency Procedures.pdf", url: "/documents/tender-166-emergency.pdf" }
     ],
     requirements: [
-      { id: 1, question: "Describe your experience with educational IT infrastructure projects", type: "text" as const },
-      { id: 2, question: "What certifications do your technicians hold?", type: "text" as const },
-      { id: 3, question: "Can you provide 24/7 technical support?", type: "dropdown" as const, options: ["Yes", "No", "Business hours only"] },
-      { id: 4, question: "What is your proposed project timeline?", type: "dropdown" as const, options: ["3 months", "6 months", "9 months", "12 months"] }
+      { id: 1, question: "Describe your security personnel licensing and training", type: "text" as const },
+      { id: 2, question: "What security technologies do you utilize?", type: "text" as const },
+      { id: 3, question: "Can you provide executive protection services?", type: "dropdown" as const, options: ["Yes", "No", "Through partner"] },
+      { id: 4, question: "What is your incident response time guarantee?", type: "dropdown" as const, options: ["5 minutes", "10 minutes", "15 minutes", "30 minutes"] }
     ]
   }
 ];

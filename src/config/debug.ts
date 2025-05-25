@@ -8,17 +8,18 @@ export const DEBUG_MODE = true;
 export const mockTenders = tenders;
 
 export const mockCategories = [
-  "Fresh Produce",
-  "Dairy & Refrigerated", 
-  "Meat & Seafood",
-  "Bakery & Deli",
-  "Packaged Foods",
-  "Beverages",
-  "Health & Beauty",
-  "Household Items",
-  "Supplies",
-  "Services",
-  "Technology"
+  "Uniform",
+  "Marketing", 
+  "IT Services",
+  "Office Supplies",
+  "Facilities Management",
+  "Catering Services",
+  "Security Services",
+  "Travel & Transportation",
+  "Professional Services",
+  "Equipment & Hardware",
+  "Software & Licensing",
+  "Training & Development"
 ];
 
 export const mockTenderDetails = tenderDetails;

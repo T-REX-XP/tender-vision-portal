@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, ArrowLeft } from "lucide-react";
 
 interface TenderDetailsSectionProps {
   tender: {
@@ -44,9 +44,24 @@ export const TenderDetailsSection = ({ tender }: TenderDetailsSectionProps) => {
     }
   };
 
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
     <Card>
       <CardHeader>
+        <div className="flex items-center gap-4 mb-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleGoBack}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </Button>
+        </div>
         <CardTitle className="text-2xl">{tender.title}</CardTitle>
         <div className="flex gap-2">
           <Badge className={getStatusColor(tender.status)}>

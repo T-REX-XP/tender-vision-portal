@@ -9,9 +9,15 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    hmr: {
+      overlay: true
+    }
   },
   plugins: [
-    react(),
+    react({
+      // Enable Fast Refresh for better HMR
+      fastRefresh: true
+    }),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
@@ -31,8 +37,7 @@ export default defineConfig(({ mode }) => ({
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]',
-        sourcemap: true
+        assetFileNames: '[name].[ext]'
       }
     }
   }

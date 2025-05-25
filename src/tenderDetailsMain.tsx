@@ -21,7 +21,7 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/tenders/:id" element={<TenderDetails />} />
-        <Route path="*" element={<TenderDetails />} />
+     
       </Routes>
     </BrowserRouter>
   </QueryClientProvider>

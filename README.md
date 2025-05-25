@@ -75,6 +75,10 @@ REGEX:(?inx)^https://coop-tenders\.powerappsportals\.com/.*\.js(\?.*)?$
 # For any CSS file from your domain
 REGEX:(?inx)^https://coop-tenders\.powerappsportals\.com/.*\.css(\?.*)?$
 # Action: C:\path\to\your\local\file.css
+
+# For any map file from your domain
+REGEX:(?inx)^https://coop-tenders\.powerappsportals\.com/.*\.map(\?.*)?$
+# Action: C:\path\to\your\local\file.map
 ```
 
 #### Universal patterns (for any domain)
@@ -86,6 +90,10 @@ REGEX:(?inx).*\.js(\?.*)?$
 # For any CSS file
 REGEX:(?inx).*\.css(\?.*)?$
 # Action: C:\path\to\your\local\app.css
+
+# For any map file
+REGEX:(?inx).*\.map(\?.*)?$
+# Action: C:\path\to\your\local\app.map
 ```
 
 #### Specific file examples
@@ -94,13 +102,25 @@ REGEX:(?inx).*\.css(\?.*)?$
 REGEX:(?inx).*/tenders\.js(\?.*)?$
 # Action: C:\path\to\your\local\tenders.js
 
+# For specific map files by name
+REGEX:(?inx).*/tenders\.js\.map(\?.*)?$
+# Action: C:\path\to\your\local\tenders.js.map
+
 # For bundle files
 REGEX:(?inx).*/bundle\.js(\?.*)?$
 # Action: C:\path\to\your\local\bundle.js
 
+# For bundle map files
+REGEX:(?inx).*/bundle\.js\.map(\?.*)?$
+# Action: C:\path\to\your\local\bundle.js.map
+
 # For main app files
 REGEX:(?inx).*/main\.js(\?.*)?$
 # Action: C:\path\to\your\local\main.js
+
+# For main app map files
+REGEX:(?inx).*/main\.js\.map(\?.*)?$
+# Action: C:\path\to\your\local\main.js.map
 ```
 
 #### Useful Fiddler Actions

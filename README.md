@@ -1,4 +1,3 @@
-
 # Welcome to your Lovable project
 
 ## Project info
@@ -83,6 +82,10 @@ REGEX:(?inx)^https://coop-tenders\.powerappsportals\.com/.*\.map(\?.*)?$
 
 #### Universal patterns (for any domain)
 ```
+# For any JavaScript file or map file
+REGEX:(?inx).*\.js(\.map)?(\?.*)?$
+# Action: C:\path\to\your\local\app.js
+
 # For any JavaScript file
 REGEX:(?inx).*\.js(\?.*)?$
 # Action: C:\path\to\your\local\app.js

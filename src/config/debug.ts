@@ -38,37 +38,51 @@ export const mockTenders = [
   },
   {
     id: 4,
-    title: "Construction Materials Supply",
-    organization: "Metro Housing Authority",
+    title: "Fresh Produce Supply Contract",
+    organization: "FreshMart Supermarkets",
     deadline: "2024-02-20",
     value: "$300,000",
-    category: "Construction",
+    category: "Fresh Produce",
     status: "Open",
-    description: "Supply of construction materials for affordable housing development project including cement, steel, and lumber.",
+    description: "Supply of fresh fruits and vegetables for 50+ store locations including organic and conventional produce.",
     location: "Metro Area, IL"
   },
   {
     id: 5,
-    title: "Cleaning Services Contract",
-    organization: "Public Health Department",
+    title: "Dairy Products Procurement",
+    organization: "FreshMart Supermarkets",
     deadline: "2024-01-25",
     value: "$75,000",
-    category: "Services",
+    category: "Dairy & Refrigerated",
     status: "Closing Soon",
-    description: "Professional cleaning services for public health facilities and administrative buildings.",
+    description: "Supply of dairy products including milk, cheese, yogurt, and other refrigerated items.",
     location: "Springfield, IL"
   },
   {
     id: 6,
-    title: "Vehicle Fleet Maintenance",
-    organization: "Emergency Services",
+    title: "Packaged Foods Contract",
+    organization: "FreshMart Supermarkets",
     deadline: "2024-02-28",
     value: "$120,000",
-    category: "Maintenance",
+    category: "Packaged Foods",
     status: "Open",
-    description: "Maintenance and repair services for emergency vehicle fleet including ambulances and fire trucks.",
+    description: "Supply of packaged and canned goods for grocery chain including snacks, cereals, and canned vegetables.",
     location: "Cook County, IL"
   }
+];
+
+export const mockCategories = [
+  "Fresh Produce",
+  "Dairy & Refrigerated", 
+  "Meat & Seafood",
+  "Bakery & Deli",
+  "Packaged Foods",
+  "Beverages",
+  "Health & Beauty",
+  "Household Items",
+  "Supplies",
+  "Services",
+  "Technology"
 ];
 
 export const mockTenderDetails = [

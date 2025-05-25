@@ -1,9 +1,20 @@
 
 import { Button } from "@/components/ui/button";
 import { Building2, Search, FileText, Award, ShoppingCart, Users, Truck } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Landing = () => {
+  const navigate = useNavigate();
+
+  const categories = [
+    "Fresh Produce", "Dairy & Refrigerated", "Meat & Seafood", "Bakery & Deli",
+    "Packaged Foods", "Beverages", "Health & Beauty", "Household Items"
+  ];
+
+  const handleCategoryClick = (category: string) => {
+    navigate(`/tenders?category=${encodeURIComponent(category)}`);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       {/* Hero Section with Background Image */}
@@ -98,13 +109,14 @@ const Landing = () => {
             Procurement Categories
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              "Fresh Produce", "Dairy & Refrigerated", "Meat & Seafood", "Bakery & Deli",
-              "Packaged Foods", "Beverages", "Health & Beauty", "Household Items"
-            ].map((category, index) => (
-              <div key={index} className="bg-gray-50 p-4 rounded-lg text-center hover:bg-gray-100 transition-colors">
+            {categories.map((category, index) => (
+              <button
+                key={index}
+                onClick={() => handleCategoryClick(category)}
+                className="bg-gray-50 p-4 rounded-lg text-center hover:bg-gray-100 transition-colors cursor-pointer border border-transparent hover:border-green-200"
+              >
                 <div className="font-medium text-gray-900">{category}</div>
-              </div>
+              </button>
             ))}
           </div>
         </div>

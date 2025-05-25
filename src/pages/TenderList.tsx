@@ -1,10 +1,11 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 import { HeroSection } from "@/components/HeroSection";
 import { FiltersSection } from "@/components/FiltersSection";
 import { TenderGrid } from "@/components/TenderGrid";
-import { DEBUG_MODE, mockTenders } from "@/config/debug";
+import { DEBUG_MODE, mockTenders, mockCategories } from "@/config/debug";
 
 interface Tender {
   id: number;
@@ -32,15 +33,45 @@ const fetchTenders = async (): Promise<Tender[]> => {
   return response.json();
 };
 
+const fetchCategories = async (): Promise<string[]> => {
+  // Return mock data if in debug mode
+  if (DEBUG_MODE) {
+    console.log("Debug mode enabled - using mock categories data");
+    return Promise.resolve(mockCategories);
+  }
+  
+  const response = await fetch('/getcategories');
+  if (!response.ok) {
+    throw new Error('Failed to fetch categories');
+  }
+  return response.json();
+};
+
 const Index = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedStatus, setSelectedStatus] = useState("all");
 
-  const { data: tenderData = [], isLoading, error } = useQuery({
+  const { data: tenderData = [], isLoading: tendersLoading, error } = useQuery({
     queryKey: ['tenders'],
     queryFn: fetchTenders,
   });
+
+  const { data: categoriesData = [], isLoading: categoriesLoading } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+  });
+
+  // Handle URL category parameter
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam && categoriesData.includes(categoryParam)) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [searchParams, categoriesData]);
+
+  const isLoading = tendersLoading || categoriesLoading;
 
   const filteredTenders = tenderData.filter(tender => {
     const matchesSearch = tender.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -51,8 +82,8 @@ const Index = () => {
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  // Get unique categories and statuses from actual data
-  const actualCategories = ["all", ...new Set(tenderData.map(tender => tender.category))];
+  // Build categories list from fetched data
+  const actualCategories = ["all", ...categoriesData];
   const actualStatuses = ["all", ...new Set(tenderData.map(tender => tender.status))];
 
   return (

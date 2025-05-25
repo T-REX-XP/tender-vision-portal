@@ -51,6 +51,22 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+## Available Commands
+
+Here are all the npm commands available in this project:
+
+### Development Commands
+- `npm run dev` - Start the development server with hot reload
+- `npm run build` - Build the project for production
+- `npm run preview` - Preview the production build locally
+
+### Code Quality Commands
+- `npm run lint` - Run ESLint to check for code quality issues
+- `npm run type-check` - Run TypeScript compiler to check for type errors
+
+### Other Commands
+- `npm i` or `npm install` - Install all project dependencies
+
 ## Fiddler Autoresponse Rules for Local Development
 
 If you're using Fiddler Classic for debugging and want to intercept CSS/JS files to serve local versions, you can set up autoresponse rules:

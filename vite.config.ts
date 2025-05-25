@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => ({
     sourcemap: true,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'laindex.html'),
+        main: path.resolve(__dirname, 'index.html'),
         tenders: path.resolve(__dirname, 'tenderList.html'),
         tenderDetails: path.resolve(__dirname, 'tenderDetails.html')
       },

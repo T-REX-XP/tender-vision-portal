@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Building2, Search, FileText, Award } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -83,19 +82,6 @@ const Landing = () => {
           </Link>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <Building2 className="h-6 w-6" />
-            <span className="text-lg font-semibold">TenderPortal</span>
-          </div>
-          <p className="text-gray-400">
-            Your gateway to business opportunities
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };

@@ -6,21 +6,6 @@ import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <Building2 className="h-8 w-8 text-blue-600" />
-              <h1 className="text-xl font-bold text-gray-900">TenderPortal</h1>
-            </div>
-            <Link to="/tenders">
-              <Button>Browse Tenders</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section with Background Image */}
       <section 
         className="py-20 relative bg-cover bg-center bg-no-repeat"

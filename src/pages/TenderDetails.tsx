@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
 import { TenderDetailsSection } from "@/components/TenderDetailsSection";
@@ -128,7 +128,9 @@ const TenderNotFound = ({ tenderId }: { tenderId: string }) => {
 };
 
 const TenderDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get('id');
+  
   const [bidData, setBidData] = useState<BidData>({
     generalDescription: '',
     questionnaire: {},

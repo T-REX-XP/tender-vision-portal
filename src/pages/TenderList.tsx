@@ -19,7 +19,7 @@ interface Tender {
 }
 
 const fetchTenders = async (): Promise<Tender[]> => {
-  const response = await fetch('/gettenders');
+  const response = await fetch('https://coop-tenders.powerappsportals.com/gettenders');
   if (!response.ok) {
     throw new Error('Failed to fetch tenders');
   }

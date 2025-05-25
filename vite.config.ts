@@ -24,15 +24,14 @@ export default defineConfig(({ mode }) => ({
     sourcemap: true,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
+        main: path.resolve(__dirname, 'laindex.html'),
         tenders: path.resolve(__dirname, 'tenderList.html'),
         tenderDetails: path.resolve(__dirname, 'tenderDetails.html')
       },
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]',
-        sourcemap: true
+        assetFileNames: '[name].[ext]'
       }
     }
   }

@@ -84,9 +84,9 @@ export const mockTenderDetails = [
       { name: "Terms and Conditions.pdf", url: "/documents/tender-1-terms.pdf" }
     ],
     requirements: [
-      { id: 1, question: "Describe your company's experience with municipal supply contracts", type: "text" },
-      { id: 2, question: "What is your proposed delivery timeline?", type: "dropdown", options: ["15 days", "30 days", "45 days"] },
-      { id: 3, question: "Do you provide bulk discounts for large orders?", type: "dropdown", options: ["Yes", "No"] }
+      { id: 1, question: "Describe your company's experience with municipal supply contracts", type: "text" as const },
+      { id: 2, question: "What is your proposed delivery timeline?", type: "dropdown" as const, options: ["15 days", "30 days", "45 days"] },
+      { id: 3, question: "Do you provide bulk discounts for large orders?", type: "dropdown" as const, options: ["Yes", "No"] }
     ]
   },
   {
@@ -100,8 +100,8 @@ export const mockTenderDetails = [
       { name: "Road Maintenance Specifications.pdf", url: "/documents/tender-2-spec.pdf" }
     ],
     requirements: [
-      { id: 1, question: "Describe your equipment and crew capacity", type: "text" },
-      { id: 2, question: "What is your experience with road maintenance?", type: "text" }
+      { id: 1, question: "Describe your equipment and crew capacity", type: "text" as const },
+      { id: 2, question: "What is your experience with road maintenance?", type: "text" as const }
     ]
   }
 ];

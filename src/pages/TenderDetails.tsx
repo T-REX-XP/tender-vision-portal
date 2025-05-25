@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Header } from "@/components/Header";
 import { TenderDetailsSection } from "@/components/TenderDetailsSection";
 import { BidSubmissionForm } from "@/components/BidSubmissionForm";
 import { CommunicationArea } from "@/components/CommunicationArea";
@@ -71,7 +70,6 @@ const fetchBidData = async (tenderId: string): Promise<BidData | null> => {
 const TenderDetailsPlaceholder = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
         <div className="bg-white rounded-lg shadow p-6">
           <Skeleton className="h-8 w-3/4 mb-4" />
@@ -99,7 +97,6 @@ const TenderDetailsPlaceholder = () => {
 const TenderNotFound = ({ tenderId }: { tenderId: string }) => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="text-center py-12">
           <div className="mb-6">
@@ -195,7 +192,6 @@ const TenderDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
         <TenderDetailsSection tender={tenderDetails} />
         

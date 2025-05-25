@@ -17,9 +17,10 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/tenders" element={<TenderList />} />
-          <Route path="/tender/:id" element={<TenderDetails />} />
+          {/* <Route path="/" element={<Landing />} />
+          <Route path="/tenders" element={<TenderList />} /> */}
+          {/* <Route path="/tender/:id" element={<TenderDetails />} /> */}
+          <Route path="*" element={<TenderDetails />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

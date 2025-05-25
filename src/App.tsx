@@ -19,7 +19,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/tenders" element={<TenderList />} />
-          <Route path="/tender/:id" element={<TenderDetails />} />
+          <Route path="/tenders/:id" element={<TenderDetails />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

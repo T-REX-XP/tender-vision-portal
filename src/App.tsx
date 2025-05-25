@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import TenderList from "./pages/TenderList";
+import TenderDetails from "./pages/TenderDetails";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/tenders" element={<TenderList />} />
+          <Route path="/tender/:id" element={<TenderDetails />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -70,7 +70,7 @@ const TenderDetails = () => {
   });
 
   // Update bidData when existing bid is loaded
-  useState(() => {
+  useEffect(() => {
     if (existingBid) {
       setBidData(existingBid);
     }

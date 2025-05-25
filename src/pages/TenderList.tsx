@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { FiltersSection } from "@/components/FiltersSection";
 import { TenderGrid } from "@/components/TenderGrid";
+import { DEBUG_MODE, mockTenders } from "@/config/debug";
 
 interface Tender {
   id: number;
@@ -19,6 +20,12 @@ interface Tender {
 }
 
 const fetchTenders = async (): Promise<Tender[]> => {
+  // Return mock data if in debug mode
+  if (DEBUG_MODE) {
+    console.log("Debug mode enabled - using mock tender data");
+    return Promise.resolve(mockTenders);
+  }
+  
   const response = await fetch('/gettenders');
   if (!response.ok) {
     throw new Error('Failed to fetch tenders');

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export const Header = () => {
   return (
-    <header className="bg-blue-800 shadow-sm border-b">
+    <header className="shadow-sm border-b" style={{ backgroundColor: '#003366' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-3">

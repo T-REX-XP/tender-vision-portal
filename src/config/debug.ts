@@ -5,6 +5,9 @@ import { tenderDetails } from '../data/tenderDetails';
 // Toggle this to enable/disable debug mode
 export const DEBUG_MODE = true;
 
+// Toggle this to enable/disable header on landing page
+export const SHOW_HEADER = true;
+
 export const mockTenders = tenders;
 
 export const mockCategories = [

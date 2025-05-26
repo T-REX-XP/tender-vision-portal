@@ -1,7 +1,8 @@
-
 import { Button } from "@/components/ui/button";
 import { Building2, Search, FileText, Award, ShoppingCart, Users, Truck } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Header } from "@/components/Header";
+import { SHOW_HEADER } from "@/config/debug";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+      {SHOW_HEADER && <Header />}
+      
       {/* Hero Section with Background Image */}
       <section 
         className="py-20 relative bg-cover bg-center bg-no-repeat"

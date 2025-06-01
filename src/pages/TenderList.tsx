@@ -6,20 +6,9 @@ import { HeroSection } from "@/components/HeroSection";
 import { FiltersSection } from "@/components/FiltersSection";
 import { TenderGrid } from "@/components/TenderGrid";
 import { DEBUG_MODE, mockTenders, mockCategories } from "@/config/debug";
+import ITender from "@/types/itender";
 
-interface Tender {
-  id: number;
-  title: string;
-  organization: string;
-  deadline: string;
-  value: string;
-  category: string;
-  status: string;
-  description: string;
-  location: string;
-}
-
-const fetchTenders = async (): Promise<Tender[]> => {
+const fetchTenders = async (): Promise<ITender[]> => {
   // Return mock data if in debug mode
   if (DEBUG_MODE) {
     console.log("Debug mode enabled - using mock tender data");

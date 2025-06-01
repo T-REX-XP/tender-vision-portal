@@ -4,21 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-
-interface Tender {
-  id: number;
-  title: string;
-  organization: string;
-  deadline: string;
-  value: string;
-  category: string;
-  status: string;
-  description: string;
-  location: string;
-}
+import ITender from "@/types/itender";
 
 interface TenderCardProps {
-  tender: Tender;
+  tender: ITender;
 }
 
 export const TenderCard = ({ tender }: TenderCardProps) => {

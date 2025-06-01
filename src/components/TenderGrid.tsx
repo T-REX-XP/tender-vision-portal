@@ -3,21 +3,10 @@ import { Search, Building2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TenderCard } from "./TenderCard";
 import { TenderCardSkeleton } from "./TenderCardSkeleton";
-
-interface Tender {
-  id: number;
-  title: string;
-  organization: string;
-  deadline: string;
-  value: string;
-  category: string;
-  status: string;
-  description: string;
-  location: string;
-}
+import ITender from "@/types/itender";
 
 interface TenderGridProps {
-  filteredTenders: Tender[];
+  filteredTenders: ITender[];
   isLoading: boolean;
   error: Error | null;
 }

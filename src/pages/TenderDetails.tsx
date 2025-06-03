@@ -57,7 +57,7 @@ const fetchBidData = async (tenderId: string): Promise<BidData | null> => {
     return Promise.resolve(null);
   }
   
-  const response = await fetch(`/api/bids/tender/${tenderId}`);
+  const response = await fetch(`/getbiddetails?tenderId=${tenderId}`);
   if (response.status === 404) {
     return null; // No existing bid
   }

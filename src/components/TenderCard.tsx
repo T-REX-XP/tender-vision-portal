@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import ITender from "@/types/itender";
+import ITender from "@/types/ITender";
 
 interface TenderCardProps {
   tender: ITender;

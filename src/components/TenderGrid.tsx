@@ -3,7 +3,7 @@ import { Search, Building2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TenderCard } from "./TenderCard";
 import { TenderCardSkeleton } from "./TenderCardSkeleton";
-import ITender from "@/types/itender";
+import ITender from "@/types/ITender";
 
 interface TenderGridProps {
   filteredTenders: ITender[];

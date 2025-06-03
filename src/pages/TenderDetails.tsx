@@ -225,12 +225,14 @@ const TenderDetails = () => {
     enabled: !!id && !DEBUG_MODE
   });
 
-  // Update bidData when existing bid is loaded
+  // Update bidData when existing bid is loaded or initialize with mock data in debug mode
   useEffect(() => {
-    if (existingBid) {
+    if (DEBUG_MODE && !bidData) {
+      setBidData(mockBidDetails);
+    } else if (existingBid) {
       setBidData(existingBid);
     }
-  }, [existingBid]);
+  }, [existingBid, bidData]);
 
   const isEditable = bidData?.status != null;
   // && 

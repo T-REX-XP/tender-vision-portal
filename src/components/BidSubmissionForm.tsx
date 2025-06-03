@@ -13,7 +13,7 @@ interface BidSubmissionFormProps {
   tender: {
     requirements: { id: string; question: string; type: 'text' | 'dropdown'; options?: string[] }[];
   };
-  bidData: {
+  bidData?: {
     generalDescription: string;
     questionnaire: { [key: string]: string };
     lineItems: { id: string; name: string; quantity: number; unitPrice: number }[];
@@ -26,6 +26,20 @@ interface BidSubmissionFormProps {
 export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: BidSubmissionFormProps) => {
   const [dragActive, setDragActive] = useState(false);
 
+  // Return early if bidData is not available
+  if (!bidData) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Bid Submission Form</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-center text-gray-500">Loading bid data...</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const addLineItem = () => {
     const newItem = {
       id: Date.now().toString(),
@@ -34,19 +48,19 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
       unitPrice: 0
     };
     onUpdate({
-      lineItems: [...bidData.lineItems, newItem]
+      lineItems: [...(bidData.lineItems || []), newItem]
     });
   };
 
   const updateLineItem = (id: string, field: string, value: string | number) => {
-    const updatedItems = bidData.lineItems.map(item =>
+    const updatedItems = (bidData.lineItems || []).map(item =>
       item.id === id ? { ...item, [field]: value } : item
     );
     onUpdate({ lineItems: updatedItems });
   };
 
   const removeLineItem = (id: string) => {
-    const updatedItems = bidData.lineItems.filter(item => item.id !== id);
+    const updatedItems = (bidData.lineItems || []).filter(item => item.id !== id);
     onUpdate({ lineItems: updatedItems });
   };
 
@@ -58,13 +72,13 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
     if (files && isEditable) {
       const newFiles = Array.from(files);
       onUpdate({
-        attachments: [...bidData.attachments, ...newFiles]
+        attachments: [...(bidData.attachments || []), ...newFiles]
       });
     }
   };
 
   const removeAttachment = (index: number) => {
-    const updatedAttachments = bidData.attachments.filter((_, i) => i !== index);
+    const updatedAttachments = (bidData.attachments || []).filter((_, i) => i !== index);
     onUpdate({ attachments: updatedAttachments });
   };
 
@@ -108,18 +122,18 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                 {req.type === 'text' ? (
                   <Textarea
                     id={`req-${req.id}`}
-                    value={bidData.questionnaire[req.id] || ''}
+                    value={(bidData.questionnaire || {})[req.id] || ''}
                     onChange={(e) => onUpdate({
-                      questionnaire: { ...bidData.questionnaire, [req.id]: e.target.value }
+                      questionnaire: { ...(bidData.questionnaire || {}), [req.id]: e.target.value }
                     })}
                     disabled={!isEditable}
                     className="mt-1"
                   />
                 ) : (
                   <Select
-                    value={bidData.questionnaire[req.id] || ''}
+                    value={(bidData.questionnaire || {})[req.id] || ''}
                     onValueChange={(value) => onUpdate({
-                      questionnaire: { ...bidData.questionnaire, [req.id]: value }
+                      questionnaire: { ...(bidData.questionnaire || {}), [req.id]: value }
                     })}
                     disabled={!isEditable}
                   >
@@ -163,7 +177,7 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
               </TableRow>
             </TableHeader>
             <TableBody>
-              {bidData.lineItems.map((item) => (
+              {(bidData.lineItems || []).map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>
                     <Input
@@ -210,7 +224,7 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                   )}
                 </TableRow>
               ))}
-              {bidData.lineItems.length === 0 && (
+              {(bidData.lineItems || []).length === 0 && (
                 <TableRow>
                   <TableCell colSpan={isEditable ? 5 : 4} className="text-center text-gray-500">
                     No line items added yet
@@ -257,9 +271,9 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
             </div>
           )}
 
-          {bidData.attachments.length > 0 && (
+          {(bidData.attachments || []).length > 0 && (
             <div className="mt-3 space-y-2">
-              {bidData.attachments.map((file, index) => (
+              {(bidData.attachments || []).map((file, index) => (
                 <div key={index} className="flex items-center justify-between p-2 border rounded">
                   <span className="text-sm">{file.name}</span>
                   {isEditable && (

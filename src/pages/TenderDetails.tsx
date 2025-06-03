@@ -210,7 +210,7 @@ const TenderDetails = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
 
-  const [bidData, setBidData] = useState<BidData>();
+  const [bidData, setBidData] = useState<BidData | undefined>();
 
   const { data: tenderDetails, isLoading: tenderLoading, error: tenderError } = useQuery({
     queryKey: ['tender', id],
@@ -232,19 +232,19 @@ const TenderDetails = () => {
     }
   }, [existingBid]);
 
-  const isEditable = bidData.status != null;
+  const isEditable = bidData?.status != null;
   // && 
   // tenderDetails && 
   // new Date(tenderDetails.deadline) > new Date();
 
   const handleBidUpdate = (updatedBid: Partial<BidData>) => {
-    setBidData(prev => ({ ...prev, ...updatedBid }));
+    setBidData(prev => prev ? ({ ...prev, ...updatedBid }) : updatedBid as BidData);
   };
 
   const handleSubmitBid = async () => {
     if (DEBUG_MODE) {
       console.log("Debug mode - simulating bid submission");
-      setBidData(prev => ({ ...prev, status: 'submitted' }));
+      setBidData(prev => prev ? ({ ...prev, status: 'submitted' }) : { ...mockBidDetails, status: 'submitted' });
       return;
     }
 
@@ -255,7 +255,7 @@ const TenderDetails = () => {
     });
 
     if (response.ok) {
-      setBidData(prev => ({ ...prev, status: 'submitted' }));
+      setBidData(prev => prev ? ({ ...prev, status: 'submitted' }) : undefined);
     }
   };
 
@@ -284,7 +284,7 @@ const TenderDetails = () => {
         <SubmissionActions
           isEditable={isEditable}
           onSubmit={handleSubmitBid}
-          bidStatus={bidData.status}
+          bidStatus={bidData?.status}
         />
       </div>
     </div>

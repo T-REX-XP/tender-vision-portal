@@ -40,7 +40,7 @@ const fetchTenderDetails = async (id: string): Promise<TenderDetails> => {
     throw new Error(`Tender with ID ${id} not found in mock data`);
   }
   
-  const response = await fetch(`/gettenderdetails?id=${id}`);
+  const response = await fetch(`/gettenderdetails/?id=${id}`);
   if (!response.ok) {
     if (response.status === 404) {
       throw new Error(`Tender with ID ${id} not found`);
@@ -57,7 +57,7 @@ const fetchBidData = async (tenderId: string): Promise<BidData | null> => {
     return Promise.resolve(null);
   }
   
-  const response = await fetch(`/getbiddetails?tenderId=${tenderId}`);
+  const response = await fetch(`/getbiddetails/?tenderId=${tenderId}`);
   if (response.status === 404) {
     return null; // No existing bid
   }

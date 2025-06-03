@@ -129,9 +129,38 @@ const TenderDetails = () => {
   const id = searchParams.get('id');
   
   const [bidData, setBidData] = useState<BidData>({
-    generalDescription: '',
-    questionnaire: {},
-    lineItems: [],
+    generalDescription: 'We are pleased to submit our comprehensive proposal for this project. Our team brings over 15 years of experience in delivering high-quality solutions that meet and exceed client expectations. We have carefully reviewed all requirements and are confident in our ability to deliver exceptional results within the specified timeframe.',
+    questionnaire: {
+      1: 'Our company has 15+ years of experience in this field with a proven track record of successful project delivery.',
+      2: 'ISO 9001:2015 certified with additional certifications in project management and quality assurance.',
+      3: 'We can complete this project within 8-12 weeks depending on final specifications and requirements.'
+    },
+    lineItems: [
+      {
+        id: '1',
+        name: 'Project Management & Planning',
+        quantity: 1,
+        unitPrice: 15000
+      },
+      {
+        id: '2',
+        name: 'Development & Implementation',
+        quantity: 120,
+        unitPrice: 85
+      },
+      {
+        id: '3',
+        name: 'Testing & Quality Assurance',
+        quantity: 40,
+        unitPrice: 75
+      },
+      {
+        id: '4',
+        name: 'Documentation & Training',
+        quantity: 1,
+        unitPrice: 5000
+      }
+    ],
     attachments: [],
     status: 'draft'
   });

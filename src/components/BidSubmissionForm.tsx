@@ -26,8 +26,14 @@ interface BidSubmissionFormProps {
 export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: BidSubmissionFormProps) => {
   const [dragActive, setDragActive] = useState(false);
 
+  console.log('=== BID SUBMISSION FORM DEBUG ===');
+  console.log('bidData prop:', bidData);
+  console.log('isEditable:', isEditable);
+  console.log('bidData is truthy:', !!bidData);
+
   // Return early if bidData is not available
   if (!bidData) {
+    console.log('🔄 Rendering loading state - bidData is falsy');
     return (
       <Card>
         <CardHeader>
@@ -39,6 +45,9 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
       </Card>
     );
   }
+
+  console.log('✅ Rendering full form - bidData is available');
+  console.log('=== END BID SUBMISSION FORM DEBUG ===');
 
   const addLineItem = () => {
     const newItem = {

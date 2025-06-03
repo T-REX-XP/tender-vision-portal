@@ -133,20 +133,33 @@ const mockBidDetails: BidData = {
   status: 'draft'
 };
 const fetchBidData = async (tenderId: string): Promise<BidData | null> => {
+  console.log('=== FETCH BID DATA DEBUG ===');
+  console.log('tenderId:', tenderId);
+  console.log('DEBUG_MODE:', DEBUG_MODE);
+  
   // Return null for mock data (no existing bids in debug mode)
   if (DEBUG_MODE) {
-    console.log("Debug mode enabled - no existing bid data");
+    console.log("Debug mode enabled - returning mock bid data");
     return Promise.resolve(mockBidDetails);
   }
 
+  console.log('Making API call to fetch bid data...');
   const response = await fetch(`/getbiddetails/?tenderId=${tenderId}`);
+  console.log('API response status:', response.status);
+  
   if (response.status === 404) {
+    console.log('No existing bid found (404) - returning null');
     return null; // No existing bid
   }
   if (!response.ok) {
+    console.log('API error - throwing exception');
     throw new Error('Failed to fetch bid data');
   }
-  return response.json();
+  
+  const data = await response.json();
+  console.log('API response data:', data);
+  console.log('=== END FETCH BID DATA DEBUG ===');
+  return data;
 };
 
 const TenderDetailsPlaceholder = () => {
@@ -225,13 +238,30 @@ const TenderDetails = () => {
     enabled: !!id && !DEBUG_MODE
   });
 
+  console.log('=== REACT QUERY DEBUG ===');
+  console.log('Query enabled (!!id && !DEBUG_MODE):', !!id && !DEBUG_MODE);
+  console.log('id:', id);
+  console.log('DEBUG_MODE:', DEBUG_MODE);
+  console.log('bidLoading:', bidLoading);
+  console.log('existingBid:', existingBid);
+  console.log('=== END REACT QUERY DEBUG ===');
+
   // Update bidData when existing bid is loaded or initialize with mock data in debug mode
   useEffect(() => {
+    console.log('=== BID DATA INITIALIZATION DEBUG ===');
+    console.log('DEBUG_MODE:', DEBUG_MODE);
+    console.log('existingBid:', existingBid);
+    console.log('bidData:', bidData);
+    console.log('bidLoading:', bidLoading);
+    
     if (DEBUG_MODE && !bidData) {
+      console.log('✅ Condition 1: DEBUG_MODE && !bidData - Setting mock bid data');
       setBidData(mockBidDetails);
     } else if (existingBid) {
+      console.log('✅ Condition 2: existingBid exists - Setting existing bid data');
       setBidData(existingBid);
     } else if (!DEBUG_MODE && existingBid === null && !bidData) {
+      console.log('✅ Condition 3: !DEBUG_MODE && existingBid === null && !bidData - Creating empty bid data');
       // No existing bid found, initialize with empty bid data
       const emptyBidData: BidData = {
         generalDescription: '',
@@ -241,8 +271,14 @@ const TenderDetails = () => {
         status: 'draft'
       };
       setBidData(emptyBidData);
+    } else {
+      console.log('❌ No conditions matched');
+      console.log('- DEBUG_MODE && !bidData:', DEBUG_MODE && !bidData);
+      console.log('- existingBid exists:', !!existingBid);
+      console.log('- !DEBUG_MODE && existingBid === null && !bidData:', !DEBUG_MODE && existingBid === null && !bidData);
     }
-  }, [existingBid, bidData]);
+    console.log('=== END BID DATA DEBUG ===');
+  }, [existingBid, bidData, bidLoading]);
 
   const isEditable = bidData?.status != null;
   // && 

@@ -232,7 +232,7 @@ const TenderDetails = () => {
     }
   }, [existingBid]);
 
-  const isEditable = bidData.status === 'draft' && 
+  const isEditable = bidData.status === 'Active' && 
     tenderDetails && 
     new Date(tenderDetails.deadline) > new Date();
 

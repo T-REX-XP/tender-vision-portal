@@ -231,6 +231,16 @@ const TenderDetails = () => {
       setBidData(mockBidDetails);
     } else if (existingBid) {
       setBidData(existingBid);
+    } else if (!DEBUG_MODE && existingBid === null && !bidData) {
+      // No existing bid found, initialize with empty bid data
+      const emptyBidData: BidData = {
+        generalDescription: '',
+        questionnaire: {},
+        lineItems: [],
+        attachments: [],
+        status: 'draft'
+      };
+      setBidData(emptyBidData);
     }
   }, [existingBid, bidData]);
 

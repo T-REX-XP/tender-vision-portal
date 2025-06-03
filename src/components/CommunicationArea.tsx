@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Send } from "lucide-react";
 
 interface QAItem {
-  id: number;
+  id: string;
   question: string;
   answer?: string;
   createdAt: string;
@@ -16,7 +16,7 @@ interface QAItem {
 }
 
 interface Clarification {
-  id: number;
+  id: string;
   title: string;
   content: string;
   createdAt: string;

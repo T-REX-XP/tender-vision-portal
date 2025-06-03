@@ -11,11 +11,11 @@ import { useState } from "react";
 
 interface BidSubmissionFormProps {
   tender: {
-    requirements: { id: number; question: string; type: 'text' | 'dropdown'; options?: string[] }[];
+    requirements: { id: string; question: string; type: 'text' | 'dropdown'; options?: string[] }[];
   };
   bidData: {
     generalDescription: string;
-    questionnaire: { [key: number]: string };
+    questionnaire: { [key: string]: string };
     lineItems: { id: string; name: string; quantity: number; unitPrice: number }[];
     attachments: File[];
   };

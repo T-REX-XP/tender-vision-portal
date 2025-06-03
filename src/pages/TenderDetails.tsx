@@ -230,7 +230,7 @@ const TenderDetails = () => {
   const { data: existingBid, isLoading: bidLoading } = useQuery({
     queryKey: ['bid', id],
     queryFn: () => fetchBidData(id!),
-    enabled: !!id
+    enabled: !!id && !DEBUG_MODE
   });
 
   // Update bidData when existing bid is loaded

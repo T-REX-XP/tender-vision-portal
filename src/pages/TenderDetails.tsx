@@ -232,9 +232,10 @@ const TenderDetails = () => {
     }
   }, [existingBid]);
 
-  const isEditable = bidData.status && 
-    tenderDetails && 
-    new Date(tenderDetails.deadline) > new Date();
+  const isEditable = bidData.status !=null;
+    // && 
+    // tenderDetails && 
+    // new Date(tenderDetails.deadline) > new Date();
 
   const handleBidUpdate = (updatedBid: Partial<BidData>) => {
     setBidData(prev => ({ ...prev, ...updatedBid }));

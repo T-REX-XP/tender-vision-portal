@@ -29,7 +29,7 @@ const Landing = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl font-bold text-white mb-6">
-            FreshMart Supplier Portal
+            Coop Supplier Portal
           </h1>
           <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
             Partner with one of the nation's leading supermarket chains. 
@@ -71,7 +71,7 @@ const Landing = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Why Partner with FreshMart?
+            Why Partner with Coop?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center bg-white p-6 rounded-lg shadow-sm">
@@ -129,7 +129,7 @@ const Landing = () => {
       <section className="py-16 bg-green-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Become a FreshMart Supplier?
+            Ready to Become a Coop Supplier?
           </h2>
           <p className="text-xl text-green-100 mb-8">
             Join our network of trusted suppliers and grow your business with America's favorite supermarket.

@@ -60,6 +60,7 @@ const fetchTenderDetails = async (id: string): Promise<TenderDetails> => {
   return response.json();
 };
 const mockBidDetails: BidData = {
+  id: "mock-bid-123",
   generalDescription:
     "We are pleased to submit our comprehensive proposal for this project. Our team brings over 15 years of experience in delivering high-quality solutions that meet and exceed client expectations. We have carefully reviewed all requirements and are confident in our ability to deliver exceptional results within the specified timeframe.\n\nOur approach includes thorough project planning, agile development methodologies, comprehensive testing protocols, and detailed documentation. We maintain transparent communication throughout the project lifecycle and provide regular progress updates to ensure alignment with your objectives.\n\nOur team consists of certified professionals with extensive industry knowledge and proven expertise in similar projects. We are committed to delivering not just a product, but a solution that adds genuine value to your organization.",
   questionnaire: {
@@ -368,7 +369,7 @@ const TenderDetails = () => {
           onUpdate={handleBidUpdate}
         />
 
-        <CommunicationArea tenderId={id!} />
+        <CommunicationArea tenderId={id!} bidId={bidData?.id} />
 
         <SubmissionActions
           isEditable={isEditable}

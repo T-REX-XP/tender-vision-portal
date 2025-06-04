@@ -6,6 +6,36 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Send } from "lucide-react";
+import { DEBUG_MODE } from "@/config/debug";
+
+const mockQAData: QAItem[] = [
+  {
+    id: "1",
+    question: "Could you please clarify the minimum experience requirements for this project? The tender document mentions '5+ years' but doesn't specify if this is for the team lead or the entire team.",
+    answer: "Thank you for your question. The 5+ years experience requirement applies to the team lead position. Other team members should have at least 2 years of relevant experience in similar projects.",
+    createdAt: "2024-11-15T10:30:00Z",
+    answeredAt: "2024-11-15T14:45:00Z"
+  },
+  {
+    id: "2", 
+    question: "Are there any specific compliance certifications required beyond those mentioned in the RFP? We want to ensure our proposal is complete.",
+    answer: "In addition to the certifications listed in section 3.2, please ensure you have ISO 27001 for information security management. All other requirements remain as specified in the original tender document.",
+    createdAt: "2024-11-16T09:15:00Z",
+    answeredAt: "2024-11-16T16:20:00Z"
+  },
+  {
+    id: "3",
+    question: "What is the expected timeline for the project kickoff after contract award? We need to plan our resource allocation accordingly.",
+    createdAt: "2024-11-17T11:00:00Z"
+  },
+  {
+    id: "4",
+    question: "Can you provide more details about the integration requirements with your existing systems? The current documentation seems limited on this aspect.",
+    answer: "We will provide detailed API documentation and system architecture diagrams to the successful bidder during the transition phase. For proposal purposes, please assume standard REST API integration capabilities.",
+    createdAt: "2024-11-17T13:30:00Z", 
+    answeredAt: "2024-11-17T17:10:00Z"
+  }
+];
 
 interface QAItem {
   id: string;
@@ -24,10 +54,20 @@ interface Clarification {
 
 interface CommunicationAreaProps {
   tenderId: string;
+  bidId?: string;
 }
 
-const fetchPrivateQA = async (tenderId: string): Promise<QAItem[]> => {
-  const response = await fetch(`/api/tenders/${tenderId}/qa`);
+const fetchPrivateQA = async (bidId?: string): Promise<QAItem[]> => {
+  if (DEBUG_MODE) {
+    console.log("Debug mode enabled - using mock Q&A data");
+    return Promise.resolve(mockQAData);
+  }
+
+  if (!bidId) {
+    throw new Error("Bid ID is required to fetch Q&A data");
+  }
+
+  const response = await fetch(`/getbidcorrespondence/?id=${bidId}`);
   if (!response.ok) throw new Error('Failed to fetch Q&A');
   return response.json();
 };
@@ -38,13 +78,13 @@ const fetchPublicClarifications = async (tenderId: string): Promise<Clarificatio
   return response.json();
 };
 
-export const CommunicationArea = ({ tenderId }: CommunicationAreaProps) => {
+export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) => {
   const [newQuestion, setNewQuestion] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data: qaItems = [], refetch: refetchQA } = useQuery({
-    queryKey: ['qa', tenderId],
-    queryFn: () => fetchPrivateQA(tenderId)
+    queryKey: ['qa', bidId],
+    queryFn: () => fetchPrivateQA(bidId)
   });
 
   const { data: clarifications = [] } = useQuery({

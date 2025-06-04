@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Plus, Trash2, Upload, X } from "lucide-react";
+import { Plus, Trash2, Upload, X, FileText, File, FileImage, FileArchive, FileVideo, FileAudio } from "lucide-react";
 import { useState } from "react";
 
 interface BidSubmissionFormProps {
@@ -95,6 +95,50 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
     e.preventDefault();
     setDragActive(false);
     handleFileUpload(e.dataTransfer.files);
+  };
+
+  const getFileIcon = (fileName: string) => {
+    const extension = fileName.split('.').pop()?.toLowerCase();
+    
+    switch (extension) {
+      case 'pdf':
+        return <FileText className="h-5 w-5 text-red-600" />;
+      case 'doc':
+      case 'docx':
+        return <FileText className="h-5 w-5 text-blue-600" />;
+      case 'xls':
+      case 'xlsx':
+        return <FileText className="h-5 w-5 text-green-600" />;
+      case 'jpg':
+      case 'jpeg':
+      case 'png':
+      case 'gif':
+      case 'svg':
+        return <FileImage className="h-5 w-5 text-purple-600" />;
+      case 'mp4':
+      case 'avi':
+      case 'mov':
+      case 'wmv':
+        return <FileVideo className="h-5 w-5 text-pink-600" />;
+      case 'mp3':
+      case 'wav':
+      case 'ogg':
+        return <FileAudio className="h-5 w-5 text-orange-600" />;
+      case 'zip':
+      case 'rar':
+      case '7z':
+        return <FileArchive className="h-5 w-5 text-yellow-600" />;
+      default:
+        return <File className="h-5 w-5 text-gray-600" />;
+    }
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   return (
@@ -281,15 +325,26 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
           )}
 
           {(bidData.attachments || []).length > 0 && (
-            <div className="mt-3 space-y-2">
+            <div className="mt-3 space-y-3">
               {(bidData.attachments || []).map((file, index) => (
-                <div key={index} className="flex items-center justify-between p-2 border rounded">
-                  <span className="text-sm">{file.name}</span>
+                <div key={index} className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                  <div className="flex-shrink-0">
+                    {getFileIcon(file.name)}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium text-gray-900 truncate">
+                      {file.name}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {formatFileSize(file.size)}
+                    </div>
+                  </div>
                   {isEditable && (
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => removeAttachment(index)}
+                      className="flex-shrink-0 text-gray-400 hover:text-red-500"
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -297,6 +352,10 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                 </div>
               ))}
             </div>
+          )}
+
+          {(bidData.attachments || []).length === 0 && !isEditable && (
+            <p className="text-gray-500 text-center py-4">No attachments provided</p>
           )}
         </div>
       </CardContent>

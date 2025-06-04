@@ -72,6 +72,7 @@ interface Clarification {
 interface CommunicationAreaProps {
   tenderId: string;
   bidId?: string;
+  contactId?: string;
 }
 
 const fetchPrivateQA = async (bidId?: string): Promise<QAItem[]> => {
@@ -100,6 +101,7 @@ const fetchPublicClarifications = async (
 export const CommunicationArea = ({
   tenderId,
   bidId,
+  contactId,
 }: CommunicationAreaProps) => {
   const [newQuestion, setNewQuestion] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -119,14 +121,22 @@ export const CommunicationArea = ({
     setIsSubmitting(true);
     try {
       var record = {};
-      record["la_contact_lookup@odata.bind"] =
-        "/contacts(9a29147f-3836-f011-8c4e-000d3aaccaf0)"; // Lookup
-      record["la_tender_lookup@odata.bind"] =
-        "/la_tender_tables(8e7a5a62-c33e-f011-877a-000d3aaccaf0)"; // Lookup
-      record["la_message_mlot"] =
-        "Could you please clarify the minimum experience requirements for this project? The tender document mentions '5+ years' but doesn't specify if this is for the team lead or the entire team.";
-      record["la_bid_lookup@odata.bind"] =
-        "/la_bid_tables(d7d79568-c33e-f011-877a-000d3aaccaf0)"; // Lookup
+      
+      // Use contactId if provided, otherwise use a default/fallback
+      if (contactId) {
+        record["la_contact_lookup@odata.bind"] = `/contacts(${contactId})`;
+      }
+      
+      // Use the actual tenderId
+      record["la_tender_lookup@odata.bind"] = `/la_tender_tables(${tenderId})`;
+      
+      // Use the actual question from the form
+      record["la_message_mlot"] = newQuestion.trim();
+      
+      // Use bidId if provided
+      if (bidId) {
+        record["la_bid_lookup@odata.bind"] = `/la_bid_tables(${bidId})`;
+      }
 
       webapi.safeAjax({
         type: "POST",

@@ -204,12 +204,16 @@ export const CommunicationArea = ({
 
   // Create messages for chat display, ordered by date
   const chatMessages = qaItems
-    .map((item) => ({
-      id: item.id,
-      message: item.message,
-      user: item.user || item.contact || "Unknown User",
-      createdon: item.createdon,
-    }))
+    .map((item, index) => {
+      // Ensure we always have a unique identifier for avatar colors
+      const user = item.user || item.contact || `User-${item.id || index}`;
+      return {
+        id: item.id || `msg-${index}`,
+        message: item.message || "",
+        user,
+        createdon: item.createdon || new Date().toISOString(),
+      };
+    })
     .sort(
       (a, b) =>
         new Date(a.createdon).getTime() - new Date(b.createdon).getTime()

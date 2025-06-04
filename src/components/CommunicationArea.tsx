@@ -207,7 +207,7 @@ export const CommunicationArea = ({
     .map((item) => ({
       id: item.id,
       message: item.message,
-      user: item.user,
+      user: item.user || item.contact || "Unknown User",
       createdon: item.createdon,
     }))
     .sort(

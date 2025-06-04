@@ -235,7 +235,7 @@ export const CommunicationArea = ({
                 <div key={message.id} className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback
-                      className={`text-xs ${getUserAvatarColors(message.user || message.contact)}`}
+                      className={`text-xs ${getUserAvatarColors(message.user)}`}
                     >
                       {getUserInitials(message.user)}
                     </AvatarFallback>
@@ -243,7 +243,7 @@ export const CommunicationArea = ({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center space-x-2">
                       <h4 className="text-sm font-medium text-gray-900">
-                        {getUserDisplayName(message.user || message.contact)}
+                        {getUserDisplayName(message.user)}
                       </h4>
                       <span className="text-xs text-gray-500">
                         {formatDate(message.createdon)}

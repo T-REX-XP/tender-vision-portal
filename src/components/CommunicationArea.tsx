@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Send } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
 import { DEBUG_MODE } from "@/config/debug";
 import { webapi } from "@/webapi";
 
@@ -117,6 +117,9 @@ export const CommunicationArea = ({
         success: function (data, textStatus, xhr) {
           var newId = xhr.getResponseHeader("entityid");
           console.log(newId);
+          // Clear message field and reload messages on success
+          setNewQuestion("");
+          refetchQA();
         },
         error: function (xhr, textStatus, errorThrown) {
           console.log(xhr);
@@ -231,7 +234,11 @@ export const CommunicationArea = ({
                   disabled={!newQuestion.trim() || isSubmitting}
                   className="w-full"
                 >
-                  <Send className="h-4 w-4 mr-2" />
+                  {isSubmitting ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Send className="h-4 w-4 mr-2" />
+                  )}
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </div>

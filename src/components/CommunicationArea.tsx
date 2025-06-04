@@ -239,7 +239,7 @@ export const CommunicationArea = ({
                 <div key={message.id} className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback
-                      className={`text-xs ${getUserAvatarColors(message.user)}`}
+                      className={`text-xs font-medium !bg-transparent ${getUserAvatarColors(message.user)}`}
                     >
                       {getUserInitials(message.user)}
                     </AvatarFallback>

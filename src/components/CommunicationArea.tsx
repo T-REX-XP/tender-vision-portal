@@ -163,27 +163,22 @@ export const CommunicationArea = ({
     });
   };
 
-  const getUserInitials = (user: string | undefined) => {
-    if (!user) return "?";
+  const getUserInitials = (user: string) => {
     const name = user;
     const parts = name.split(" ");
     return parts.map((part) => part.charAt(0).toUpperCase()).join("");
   };
 
-  const getUserDisplayName = (user: string | undefined) => {
-    if (!user) return "Unknown User";
+  const getUserDisplayName = (user: string) => {
     const name = user;
     return name;
   };
 
-  const getUserAvatarColors = (user: string | undefined) => {
-    // Use fallback for undefined user
-    const userString = user || "unknown";
-    
+  const getUserAvatarColors = (user: string) => {
     // Generate a simple hash from the user string
     let hash = 0;
-    for (let i = 0; i < userString.length; i++) {
-      const char = userString.charCodeAt(i);
+    for (let i = 0; i < user.length; i++) {
+      const char = user.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash; // Convert to 32bit integer
     }
@@ -209,12 +204,16 @@ export const CommunicationArea = ({
 
   // Create messages for chat display, ordered by date
   const chatMessages = qaItems
-    .map((item) => ({
-      id: item.id,
-      message: item.message,
-      user: item.user,
-      createdon: item.createdon,
-    }))
+    .map((item, index) => {
+      // Ensure we always have a unique identifier for avatar colors
+      const user = item.user || item.contact || `User-${item.id || index}`;
+      return {
+        id: item.id || `msg-${index}`,
+        message: item.message || "",
+        user: item.user | item.contact,
+        createdon: item.createdon || new Date().toISOString(),
+      };
+    })
     .sort(
       (a, b) =>
         new Date(a.createdon).getTime() - new Date(b.createdon).getTime()
@@ -240,7 +239,7 @@ export const CommunicationArea = ({
                 <div key={message.id} className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback
-                      className={`text-xs ${getUserAvatarColors(message.user)}`}
+                      className={`text-xs font-medium ${getUserAvatarColors(message.user)}`}
                     >
                       {getUserInitials(message.user)}
                     </AvatarFallback>

@@ -173,6 +173,34 @@ export const CommunicationArea = ({
     return name;
   };
 
+  const getUserAvatarColors = (user: string) => {
+    // Generate a simple hash from the user string
+    let hash = 0;
+    for (let i = 0; i < user.length; i++) {
+      const char = user.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    
+    // Define color combinations
+    const colors = [
+      'bg-blue-100 text-blue-600',
+      'bg-green-100 text-green-600', 
+      'bg-purple-100 text-purple-600',
+      'bg-orange-100 text-orange-600',
+      'bg-pink-100 text-pink-600',
+      'bg-indigo-100 text-indigo-600',
+      'bg-yellow-100 text-yellow-600',
+      'bg-red-100 text-red-600',
+      'bg-teal-100 text-teal-600',
+      'bg-cyan-100 text-cyan-600'
+    ];
+    
+    // Use absolute value of hash to get positive index
+    const colorIndex = Math.abs(hash) % colors.length;
+    return colors[colorIndex];
+  };
+
   // Create messages for chat display, ordered by date
   const chatMessages = qaItems
     .map((item) => ({
@@ -206,9 +234,7 @@ export const CommunicationArea = ({
                 <div key={message.id} className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback
-                      className={`text-xs ${
-                          "bg-green-100 text-green-600"
-                      }`}
+                      className={`text-xs ${getUserAvatarColors(message.user)}`}
                     >
                       {getUserInitials(message.user)}
                     </AvatarFallback>

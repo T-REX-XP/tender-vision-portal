@@ -204,16 +204,12 @@ export const CommunicationArea = ({
 
   // Create messages for chat display, ordered by date
   const chatMessages = qaItems
-    .map((item, index) => {
-      // Ensure we always have a unique identifier for avatar colors
-      const user = item.user || item.contact || `User-${item.id || index}`;
-      return {
-        id: item.id || `msg-${index}`,
-        message: item.message || "",
-        user,
-        createdon: item.createdon || new Date().toISOString(),
-      };
-    })
+    .map((item) => ({
+      id: item.id,
+      message: item.message,
+      user: item.user,
+      createdon: item.createdon,
+    }))
     .sort(
       (a, b) =>
         new Date(a.createdon).getTime() - new Date(b.createdon).getTime()
@@ -239,7 +235,7 @@ export const CommunicationArea = ({
                 <div key={message.id} className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback
-                      className={`text-xs font-medium ${getUserAvatarColors(message.user)}`}
+                      className={`text-xs ${getUserAvatarColors(message.user)}`}
                     >
                       {getUserInitials(message.user)}
                     </AvatarFallback>

@@ -27,7 +27,7 @@ interface TenderDetails {
 }
 
 interface BidData {
-  id?: string;
+  id: string;
   generalDescription: string;
   questionnaire: { [key: string]: string };
   lineItems: {
@@ -296,6 +296,7 @@ const TenderDetails = () => {
       );
       // No existing bid found, initialize with empty bid data
       const emptyBidData: BidData = {
+        id: "",
         generalDescription: "",
         questionnaire: {},
         lineItems: [],
@@ -370,7 +371,7 @@ const TenderDetails = () => {
           onUpdate={handleBidUpdate}
         />
 
-        <CommunicationArea tenderId={id!} bidId={bidData?.id} />
+        <CommunicationArea tenderId={id!} bidId={bidData?.id} contactId={"9a29147f-3836-f011-8c4e-000d3aaccaf0"}/>
 
         <SubmissionActions
           isEditable={isEditable}

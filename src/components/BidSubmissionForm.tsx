@@ -14,6 +14,7 @@ interface BidSubmissionFormProps {
     requirements: { id: string; question: string; type: 'text' | 'dropdown'; options?: string[] }[];
   };
   bidData?: {
+    id: string;
     generalDescription: string;
     questionnaire: { [key: string]: string };
     lineItems: { id: string; name: string; quantity: number; unitPrice: number }[];

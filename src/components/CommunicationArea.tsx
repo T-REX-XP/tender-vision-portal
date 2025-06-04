@@ -9,57 +9,28 @@ import { Send } from "lucide-react";
 import { DEBUG_MODE } from "@/config/debug";
 import { webapi } from "@/webapi";
 
-const mockQAData: QAItem[] = [
+const mockQAData: Correspondence[] = [
   {
     id: "1",
-    question:
+    message:
       "Could you please clarify the minimum experience requirements for this project? The tender document mentions '5+ years' but doesn't specify if this is for the team lead or the entire team.",
-    questionBy: "john.smith@techcorp.com",
-    answer:
-      "Thank you for your question. The 5+ years experience requirement applies to the team lead position. Other team members should have at least 2 years of relevant experience in similar projects.",
-    answeredBy: "sarah.johnson@procurement.gov",
-    createdAt: "2024-11-15T10:30:00Z",
-    answeredAt: "2024-11-15T14:45:00Z",
+    user: "john.smith@techcorp.com",
+    createdon: "2024-11-15T10:30:00Z"
   },
   {
     id: "2",
-    question:
+    message:
       "Are there any specific compliance certifications required beyond those mentioned in the RFP? We want to ensure our proposal is complete.",
-    questionBy: "john.smith@techcorp.com",
-    answer:
-      "In addition to the certifications listed in section 3.2, please ensure you have ISO 27001 for information security management. All other requirements remain as specified in the original tender document.",
-    answeredBy: "sarah.johnson@procurement.gov",
-    createdAt: "2024-11-16T09:15:00Z",
-    answeredAt: "2024-11-16T16:20:00Z",
-  },
-  {
-    id: "3",
-    question:
-      "What is the expected timeline for the project kickoff after contract award? We need to plan our resource allocation accordingly.",
-    questionBy: "john.smith@techcorp.com",
-    createdAt: "2024-11-17T11:00:00Z",
-  },
-  {
-    id: "4",
-    question:
-      "Can you provide more details about the integration requirements with your existing systems? The current documentation seems limited on this aspect.",
-    questionBy: "john.smith@techcorp.com",
-    answer:
-      "We will provide detailed API documentation and system architecture diagrams to the successful bidder during the transition phase. For proposal purposes, please assume standard REST API integration capabilities.",
-    answeredBy: "sarah.johnson@procurement.gov",
-    createdAt: "2024-11-17T13:30:00Z",
-    answeredAt: "2024-11-17T17:10:00Z",
-  },
+    user: "john.smith@techcorp.com",
+    createdon: "2024-11-15T10:30:00Z"
+  }
 ];
 
-interface QAItem {
+interface Correspondence {
   id: string;
-  question: string;
-  questionBy: string;
-  answer?: string;
-  answeredBy?: string;
-  createdAt: string;
-  answeredAt?: string;
+  message: string;
+  user: string;
+  createdon: string;
 }
 
 interface Clarification {
@@ -75,7 +46,7 @@ interface CommunicationAreaProps {
   contactId?: string;
 }
 
-const fetchPrivateQA = async (bidId?: string): Promise<QAItem[]> => {
+const fetchPrivateQA = async (bidId?: string): Promise<Correspondence[]> => {
   if (DEBUG_MODE) {
     console.log("Debug mode enabled - using mock Q&A data");
     return Promise.resolve(mockQAData);
@@ -151,16 +122,6 @@ export const CommunicationArea = ({
           console.log(xhr);
         },
       });
-      /*const response = await fetch(`/api/tenders/${tenderId}/qa`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: newQuestion }),
-      });
-
-      if (response.ok) {
-        setNewQuestion("");
-        refetchQA();
-      }*/
     } catch (error) {
       console.error("Failed to submit question:", error);
     } finally {
@@ -178,18 +139,15 @@ export const CommunicationArea = ({
     });
   };
 
-  const getUserInitials = (email: string) => {
-    const name = email.split("@")[0];
-    const parts = name.split(".");
+  const getUserInitials = (user: string) => {
+    const name = user;
+    const parts = name.split(" ");
     return parts.map((part) => part.charAt(0).toUpperCase()).join("");
   };
 
-  const getUserDisplayName = (email: string) => {
-    const name = email.split("@")[0];
-    return name
-      .split(".")
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(" ");
+  const getUserDisplayName = (user: string) => {
+    const name = user;
+    return name;
   };
 
   // Create a flat array of messages for chat display
@@ -197,35 +155,31 @@ export const CommunicationArea = ({
     .flatMap((item) => {
       const messages: Array<{
         id: string;
-        type: "question" | "answer";
-        content: string;
-        username: string;
-        timestamp: string;
+        message: string;
+        user: string;
+        createdon: string;
       }> = [
         {
-          id: `${item.id}-question`,
-          type: "question",
-          content: item.question,
-          username: item.questionBy,
-          timestamp: item.createdAt,
+          id: `${item.id}`,
+          message: item.message,
+          user: item.user,
+          createdon: item.createdon,
         },
       ];
 
-      if (item.answer && item.answeredBy) {
         messages.push({
-          id: `${item.id}-answer`,
-          type: "answer",
-          content: item.answer,
-          username: item.answeredBy,
-          timestamp: item.answeredAt || item.createdAt,
+          id: `${item.id}`,
+          message: item.message,
+          user: item.user,
+          createdon: item.createdon,
         });
-      }
+      
 
       return messages;
     })
     .sort(
       (a, b) =>
-        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+        new Date(a.createdon).getTime() - new Date(b.createdon).getTime()
     );
 
   return (
@@ -249,38 +203,34 @@ export const CommunicationArea = ({
                   <Avatar className="h-8 w-8">
                     <AvatarFallback
                       className={`text-xs ${
-                        message.type === "question"
-                          ? "bg-blue-100 text-blue-600"
-                          : "bg-green-100 text-green-600"
+                          "bg-green-100 text-green-600"
                       }`}
                     >
-                      {getUserInitials(message.username)}
+                      {getUserInitials(message.user)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center space-x-2">
                       <h4 className="text-sm font-medium text-gray-900">
-                        {getUserDisplayName(message.username)}
+                        {getUserDisplayName(message.user)}
                       </h4>
                       <span className="text-xs text-gray-500">
-                        {formatDate(message.timestamp)}
+                        {formatDate(message.createdon)}
                       </span>
                     </div>
                     <div
                       className={`mt-1 p-3 rounded-lg ${
-                        message.type === "question"
-                          ? "bg-blue-50 border-l-4 border-blue-200"
-                          : "bg-green-50 border-l-4 border-green-200"
+                          "bg-green-50 border-l-4 border-green-200"
                       }`}
                     >
-                      <p className="text-sm text-gray-700">{message.content}</p>
+                      <p className="text-sm text-gray-700">{message.message}</p>
                     </div>
                   </div>
                 </div>
               ))}
 
               {/* Show pending questions that haven't been answered */}
-              {qaItems.some((item) => !item.answer) && (
+              {qaItems.some((item) => !item.message) && (
                 <div className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback className="bg-gray-100 text-gray-400 text-xs">

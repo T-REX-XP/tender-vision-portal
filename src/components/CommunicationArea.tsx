@@ -163,22 +163,27 @@ export const CommunicationArea = ({
     });
   };
 
-  const getUserInitials = (user: string) => {
+  const getUserInitials = (user: string | undefined) => {
+    if (!user) return "?";
     const name = user;
     const parts = name.split(" ");
     return parts.map((part) => part.charAt(0).toUpperCase()).join("");
   };
 
-  const getUserDisplayName = (user: string) => {
+  const getUserDisplayName = (user: string | undefined) => {
+    if (!user) return "Unknown User";
     const name = user;
     return name;
   };
 
-  const getUserAvatarColors = (user: string) => {
+  const getUserAvatarColors = (user: string | undefined) => {
+    // Use fallback for undefined user
+    const userString = user || "unknown";
+    
     // Generate a simple hash from the user string
     let hash = 0;
-    for (let i = 0; i < user.length; i++) {
-      const char = user.charCodeAt(i);
+    for (let i = 0; i < userString.length; i++) {
+      const char = userString.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash; // Convert to 32bit integer
     }

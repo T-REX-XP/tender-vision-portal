@@ -29,7 +29,7 @@ const Landing = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl font-bold text-white mb-6">
-            Coop Supplier Portal
+            Coop Tender Portal
           </h1>
           <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
             Partner with one of the nation's leading supermarket chains. 

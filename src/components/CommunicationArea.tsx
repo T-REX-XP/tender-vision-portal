@@ -21,7 +21,7 @@ const mockQAData: Correspondence[] = [
     id: "2",
     message:
       "Are there any specific compliance certifications required beyond those mentioned in the RFP? We want to ensure our proposal is complete.",
-    user: "john.smith@techcorp.com",
+    contact: "anna.smith@techcorp.com",
     createdon: "2024-11-15T10:30:00Z"
   }
 ];
@@ -29,7 +29,8 @@ const mockQAData: Correspondence[] = [
 interface Correspondence {
   id: string;
   message: string;
-  user: string;
+  user?: string;
+  contact?: string;
   createdon: string;
 }
 

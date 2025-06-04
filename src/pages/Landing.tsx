@@ -140,7 +140,7 @@ const Landing = () => {
                 Browse Opportunities
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-4 text-white border-white hover:bg-white hover:text-green-600">
+            <Button size="lg" variant="outline" className="text-lg px-8 py-4 text-green-600 bg-white border-white hover:bg-green-50">
               Supplier Registration
             </Button>
           </div>

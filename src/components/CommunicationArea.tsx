@@ -150,33 +150,14 @@ export const CommunicationArea = ({
     return name;
   };
 
-  // Create a flat array of messages for chat display
+  // Create messages for chat display, ordered by date
   const chatMessages = qaItems
-    .flatMap((item) => {
-      const messages: Array<{
-        id: string;
-        message: string;
-        user: string;
-        createdon: string;
-      }> = [
-        {
-          id: `${item.id}`,
-          message: item.message,
-          user: item.user,
-          createdon: item.createdon,
-        },
-      ];
-
-        messages.push({
-          id: `${item.id}`,
-          message: item.message,
-          user: item.user,
-          createdon: item.createdon,
-        });
-      
-
-      return messages;
-    })
+    .map((item) => ({
+      id: item.id,
+      message: item.message,
+      user: item.user,
+      createdon: item.createdon,
+    }))
     .sort(
       (a, b) =>
         new Date(a.createdon).getTime() - new Date(b.createdon).getTime()
@@ -229,43 +210,20 @@ export const CommunicationArea = ({
                 </div>
               ))}
 
-              {/* Show pending questions that haven't been answered */}
-              {qaItems.some((item) => !item.message) && (
-                <div className="flex items-start space-x-3">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-gray-100 text-gray-400 text-xs">
-                      ...
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2">
-                      <h4 className="text-sm font-medium text-gray-500">
-                        Waiting for response
-                      </h4>
-                    </div>
-                    <div className="mt-1 p-3 rounded-lg bg-gray-50 border-l-4 border-gray-200">
-                      <p className="text-sm text-gray-500 italic">
-                        Response pending...
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {chatMessages.length === 0 && (
                 <p className="text-gray-500 text-center py-4">
-                  No questions asked yet
+                  No messages yet
                 </p>
               )}
             </div>
 
             <div className="border-t pt-4">
-              <h4 className="font-medium mb-2">Ask a New Question</h4>
+              <h4 className="font-medium mb-2">Send a Message</h4>
               <div className="space-y-2">
                 <Textarea
                   value={newQuestion}
                   onChange={(e) => setNewQuestion(e.target.value)}
-                  placeholder="Type your question here..."
+                  placeholder="Type your message here..."
                   disabled={isSubmitting}
                 />
                 <Button
@@ -274,7 +232,7 @@ export const CommunicationArea = ({
                   className="w-full"
                 >
                   <Send className="h-4 w-4 mr-2" />
-                  {isSubmitting ? "Sending..." : "Send Question"}
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </div>
             </div>

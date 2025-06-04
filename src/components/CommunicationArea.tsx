@@ -46,10 +46,13 @@ interface CommunicationAreaProps {
   contactId?: string;
 }
 
+// Store messages in state to allow updates in debug mode
+let mockMessages = [...mockQAData];
+
 const fetchPrivateQA = async (bidId?: string): Promise<Correspondence[]> => {
   if (DEBUG_MODE) {
     console.log("Debug mode enabled - using mock Q&A data");
-    return Promise.resolve(mockQAData);
+    return Promise.resolve([...mockMessages]);
   }
 
   if (!bidId) {
@@ -91,6 +94,23 @@ export const CommunicationArea = ({
     if (!newQuestion.trim()) return;
     setIsSubmitting(true);
     try {
+      if (DEBUG_MODE) {
+        // Simulate adding message in debug mode
+        const newMessage: Correspondence = {
+          id: Date.now().toString(),
+          message: newQuestion.trim(),
+          user: "current.user@company.com",
+          createdon: new Date().toISOString()
+        };
+        mockMessages.push(newMessage);
+        
+        // Clear message field and reload messages on success
+        setNewQuestion("");
+        refetchQA();
+        setIsSubmitting(false);
+        return;
+      }
+
       var record = {};
       
       // Use contactId if provided, otherwise use a default/fallback

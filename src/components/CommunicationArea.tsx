@@ -210,7 +210,7 @@ export const CommunicationArea = ({
       return {
         id: item.id || `msg-${index}`,
         message: item.message || "",
-        user: item.user | item.contact,
+        user: item.user || item.contact || `User-${item.id || index}`,
         createdon: item.createdon || new Date().toISOString(),
       };
     })

@@ -183,18 +183,18 @@ export const CommunicationArea = ({
       hash = hash & hash; // Convert to 32bit integer
     }
     
-    // Define color combinations
+    // Define color combinations with important flags to override default bg-muted
     const colors = [
-      'bg-blue-100 text-blue-600',
-      'bg-green-100 text-green-600', 
-      'bg-purple-100 text-purple-600',
-      'bg-orange-100 text-orange-600',
-      'bg-pink-100 text-pink-600',
-      'bg-indigo-100 text-indigo-600',
-      'bg-yellow-100 text-yellow-600',
-      'bg-red-100 text-red-600',
-      'bg-teal-100 text-teal-600',
-      'bg-cyan-100 text-cyan-600'
+      '!bg-blue-100 text-blue-600',
+      '!bg-green-100 text-green-600', 
+      '!bg-purple-100 text-purple-600',
+      '!bg-orange-100 text-orange-600',
+      '!bg-pink-100 text-pink-600',
+      '!bg-indigo-100 text-indigo-600',
+      '!bg-yellow-100 text-yellow-600',
+      '!bg-red-100 text-red-600',
+      '!bg-teal-100 text-teal-600',
+      '!bg-cyan-100 text-cyan-600'
     ];
     
     // Use absolute value of hash to get positive index

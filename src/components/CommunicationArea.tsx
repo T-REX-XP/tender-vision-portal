@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,42 +7,49 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Send } from "lucide-react";
 import { DEBUG_MODE } from "@/config/debug";
-import { useToast } from "@/hooks/use-toast";
+import { webapi } from "@/webapi";
 
 const mockQAData: QAItem[] = [
   {
     id: "1",
-    question: "Could you please clarify the minimum experience requirements for this project? The tender document mentions '5+ years' but doesn't specify if this is for the team lead or the entire team.",
+    question:
+      "Could you please clarify the minimum experience requirements for this project? The tender document mentions '5+ years' but doesn't specify if this is for the team lead or the entire team.",
     questionBy: "john.smith@techcorp.com",
-    answer: "Thank you for your question. The 5+ years experience requirement applies to the team lead position. Other team members should have at least 2 years of relevant experience in similar projects.",
+    answer:
+      "Thank you for your question. The 5+ years experience requirement applies to the team lead position. Other team members should have at least 2 years of relevant experience in similar projects.",
     answeredBy: "sarah.johnson@procurement.gov",
     createdAt: "2024-11-15T10:30:00Z",
-    answeredAt: "2024-11-15T14:45:00Z"
+    answeredAt: "2024-11-15T14:45:00Z",
   },
   {
-    id: "2", 
-    question: "Are there any specific compliance certifications required beyond those mentioned in the RFP? We want to ensure our proposal is complete.",
+    id: "2",
+    question:
+      "Are there any specific compliance certifications required beyond those mentioned in the RFP? We want to ensure our proposal is complete.",
     questionBy: "john.smith@techcorp.com",
-    answer: "In addition to the certifications listed in section 3.2, please ensure you have ISO 27001 for information security management. All other requirements remain as specified in the original tender document.",
+    answer:
+      "In addition to the certifications listed in section 3.2, please ensure you have ISO 27001 for information security management. All other requirements remain as specified in the original tender document.",
     answeredBy: "sarah.johnson@procurement.gov",
     createdAt: "2024-11-16T09:15:00Z",
-    answeredAt: "2024-11-16T16:20:00Z"
+    answeredAt: "2024-11-16T16:20:00Z",
   },
   {
     id: "3",
-    question: "What is the expected timeline for the project kickoff after contract award? We need to plan our resource allocation accordingly.",
+    question:
+      "What is the expected timeline for the project kickoff after contract award? We need to plan our resource allocation accordingly.",
     questionBy: "john.smith@techcorp.com",
-    createdAt: "2024-11-17T11:00:00Z"
+    createdAt: "2024-11-17T11:00:00Z",
   },
   {
     id: "4",
-    question: "Can you provide more details about the integration requirements with your existing systems? The current documentation seems limited on this aspect.",
+    question:
+      "Can you provide more details about the integration requirements with your existing systems? The current documentation seems limited on this aspect.",
     questionBy: "john.smith@techcorp.com",
-    answer: "We will provide detailed API documentation and system architecture diagrams to the successful bidder during the transition phase. For proposal purposes, please assume standard REST API integration capabilities.",
+    answer:
+      "We will provide detailed API documentation and system architecture diagrams to the successful bidder during the transition phase. For proposal purposes, please assume standard REST API integration capabilities.",
     answeredBy: "sarah.johnson@procurement.gov",
-    createdAt: "2024-11-17T13:30:00Z", 
-    answeredAt: "2024-11-17T17:10:00Z"
-  }
+    createdAt: "2024-11-17T13:30:00Z",
+    answeredAt: "2024-11-17T17:10:00Z",
+  },
 ];
 
 interface QAItem {
@@ -79,145 +85,138 @@ const fetchPrivateQA = async (bidId?: string): Promise<QAItem[]> => {
   }
 
   const response = await fetch(`/getbidcorrespondence/?id=${bidId}`);
-  if (!response.ok) throw new Error('Failed to fetch Q&A');
+  if (!response.ok) throw new Error("Failed to fetch Q&A");
   return response.json();
 };
 
-const fetchPublicClarifications = async (tenderId: string): Promise<Clarification[]> => {
+const fetchPublicClarifications = async (
+  tenderId: string
+): Promise<Clarification[]> => {
   const response = await fetch(`/api/tenders/${tenderId}/clarifications`);
-  if (!response.ok) throw new Error('Failed to fetch clarifications');
+  if (!response.ok) throw new Error("Failed to fetch clarifications");
   return response.json();
 };
 
-export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) => {
-  const [newQuestion, setNewQuestion] = useState('');
+export const CommunicationArea = ({
+  tenderId,
+  bidId,
+}: CommunicationAreaProps) => {
+  const [newQuestion, setNewQuestion] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [additionalQuestions, setAdditionalQuestions] = useState<QAItem[]>([]);
-  const { toast } = useToast();
 
   const { data: qaItems = [], refetch: refetchQA } = useQuery({
-    queryKey: ['qa', bidId],
-    queryFn: () => fetchPrivateQA(bidId)
+    queryKey: ["qa", bidId],
+    queryFn: () => fetchPrivateQA(bidId),
   });
 
   const { data: clarifications = [] } = useQuery({
-    queryKey: ['clarifications', tenderId],
-    queryFn: () => fetchPublicClarifications(tenderId)
+    queryKey: ["clarifications", tenderId],
+    queryFn: () => fetchPublicClarifications(tenderId),
   });
 
   const submitQuestion = async () => {
     if (!newQuestion.trim()) return;
-
     setIsSubmitting(true);
-    
-    // Create new question object
-    const newQuestionItem: QAItem = {
-      id: `user-${Date.now()}`,
-      question: newQuestion.trim(),
-      questionBy: "john.smith@techcorp.com", // Current user email in real app
-      createdAt: new Date().toISOString()
-    };
-
-    // Add optimistically to local state
-    setAdditionalQuestions(prev => [...prev, newQuestionItem]);
-    setNewQuestion('');
-
     try {
-      if (DEBUG_MODE) {
-        // In debug mode, just show success
-        toast({
-          title: "Question submitted",
-          description: "Your question has been sent successfully.",
-        });
-      } else {
-        // Make actual API call
-        const response = await fetch(`/api/tenders/${tenderId}/qa`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: newQuestionItem.question })
-        });
+      var record = {};
+      record["la_contact_lookup@odata.bind"] =
+        "/contacts(9a29147f-3836-f011-8c4e-000d3aaccaf0)"; // Lookup
+      record["la_tender_lookup@odata.bind"] =
+        "/la_tender_tables(8e7a5a62-c33e-f011-877a-000d3aaccaf0)"; // Lookup
+      record["la_message_mlot"] =
+        "Could you please clarify the minimum experience requirements for this project? The tender document mentions '5+ years' but doesn't specify if this is for the team lead or the entire team.";
+      record["la_bid_lookup@odata.bind"] =
+        "/la_bid_tables(d7d79568-c33e-f011-877a-000d3aaccaf0)"; // Lookup
 
-        if (response.ok) {
-          toast({
-            title: "Question submitted",
-            description: "Your question has been sent successfully.",
-          });
-          refetchQA();
-        } else {
-          throw new Error('Failed to submit question');
-        }
-      }
-    } catch (error) {
-      console.error('Failed to submit question:', error);
-      
-      // Remove the optimistic update on error
-      setAdditionalQuestions(prev => prev.filter(q => q.id !== newQuestionItem.id));
-      setNewQuestion(newQuestionItem.question);
-      
-      toast({
-        title: "Error",
-        description: "Failed to submit question. Please try again.",
-        variant: "destructive",
+      webapi.safeAjax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/_api/la_correspondence_tables",
+        data: JSON.stringify(record),
+        success: function (data, textStatus, xhr) {
+          var newId = xhr.getResponseHeader("entityid");
+          console.log(newId);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+          console.log(xhr);
+        },
       });
+      /*const response = await fetch(`/api/tenders/${tenderId}/qa`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: newQuestion }),
+      });
+
+      if (response.ok) {
+        setNewQuestion("");
+        refetchQA();
+      }*/
+    } catch (error) {
+      console.error("Failed to submit question:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   const getUserInitials = (email: string) => {
-    const name = email.split('@')[0];
-    const parts = name.split('.');
-    return parts.map(part => part.charAt(0).toUpperCase()).join('');
+    const name = email.split("@")[0];
+    const parts = name.split(".");
+    return parts.map((part) => part.charAt(0).toUpperCase()).join("");
   };
 
   const getUserDisplayName = (email: string) => {
-    const name = email.split('@')[0];
-    return name.split('.').map(part => 
-      part.charAt(0).toUpperCase() + part.slice(1)
-    ).join(' ');
+    const name = email.split("@")[0];
+    return name
+      .split(".")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
   };
 
-  // Combine original Q&A data with additional questions
-  const allQAItems = [...qaItems, ...additionalQuestions];
-  
   // Create a flat array of messages for chat display
-  const chatMessages = allQAItems.flatMap(item => {
-    const messages: Array<{
-      id: string;
-      type: 'question' | 'answer';
-      content: string;
-      username: string;
-      timestamp: string;
-    }> = [{
-      id: `${item.id}-question`,
-      type: 'question',
-      content: item.question,
-      username: item.questionBy,
-      timestamp: item.createdAt
-    }];
-    
-    if (item.answer && item.answeredBy) {
-      messages.push({
-        id: `${item.id}-answer`,
-        type: 'answer',
-        content: item.answer,
-        username: item.answeredBy,
-        timestamp: item.answeredAt || item.createdAt
-      });
-    }
-    
-    return messages;
-  }).sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+  const chatMessages = qaItems
+    .flatMap((item) => {
+      const messages: Array<{
+        id: string;
+        type: "question" | "answer";
+        content: string;
+        username: string;
+        timestamp: string;
+      }> = [
+        {
+          id: `${item.id}-question`,
+          type: "question",
+          content: item.question,
+          username: item.questionBy,
+          timestamp: item.createdAt,
+        },
+      ];
+
+      if (item.answer && item.answeredBy) {
+        messages.push({
+          id: `${item.id}-answer`,
+          type: "answer",
+          content: item.answer,
+          username: item.answeredBy,
+          timestamp: item.answeredAt || item.createdAt,
+        });
+      }
+
+      return messages;
+    })
+    .sort(
+      (a, b) =>
+        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    );
 
   return (
     <Card>
@@ -228,19 +227,23 @@ export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) =
         <Tabs defaultValue="qa" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="qa">Private Q&A</TabsTrigger>
-            <TabsTrigger value="clarifications">Public Clarifications</TabsTrigger>
+            <TabsTrigger value="clarifications">
+              Public Clarifications
+            </TabsTrigger>
           </TabsList>
-          
+
           <TabsContent value="qa" className="space-y-4">
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {chatMessages.map((message) => (
                 <div key={message.id} className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback className={`text-xs ${
-                      message.type === 'question' 
-                        ? 'bg-blue-100 text-blue-600' 
-                        : 'bg-green-100 text-green-600'
-                    }`}>
+                    <AvatarFallback
+                      className={`text-xs ${
+                        message.type === "question"
+                          ? "bg-blue-100 text-blue-600"
+                          : "bg-green-100 text-green-600"
+                      }`}
+                    >
                       {getUserInitials(message.username)}
                     </AvatarFallback>
                   </Avatar>
@@ -253,19 +256,21 @@ export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) =
                         {formatDate(message.timestamp)}
                       </span>
                     </div>
-                    <div className={`mt-1 p-3 rounded-lg ${
-                      message.type === 'question'
-                        ? 'bg-blue-50 border-l-4 border-blue-200'
-                        : 'bg-green-50 border-l-4 border-green-200'
-                    }`}>
+                    <div
+                      className={`mt-1 p-3 rounded-lg ${
+                        message.type === "question"
+                          ? "bg-blue-50 border-l-4 border-blue-200"
+                          : "bg-green-50 border-l-4 border-green-200"
+                      }`}
+                    >
                       <p className="text-sm text-gray-700">{message.content}</p>
                     </div>
                   </div>
                 </div>
               ))}
-              
+
               {/* Show pending questions that haven't been answered */}
-              {allQAItems.some(item => !item.answer) && (
+              {qaItems.some((item) => !item.answer) && (
                 <div className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback className="bg-gray-100 text-gray-400 text-xs">
@@ -274,17 +279,23 @@ export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) =
                   </Avatar>
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
-                      <h4 className="text-sm font-medium text-gray-500">Waiting for response</h4>
+                      <h4 className="text-sm font-medium text-gray-500">
+                        Waiting for response
+                      </h4>
                     </div>
                     <div className="mt-1 p-3 rounded-lg bg-gray-50 border-l-4 border-gray-200">
-                      <p className="text-sm text-gray-500 italic">Response pending...</p>
+                      <p className="text-sm text-gray-500 italic">
+                        Response pending...
+                      </p>
                     </div>
                   </div>
                 </div>
               )}
-              
+
               {chatMessages.length === 0 && (
-                <p className="text-gray-500 text-center py-4">No questions asked yet</p>
+                <p className="text-gray-500 text-center py-4">
+                  No questions asked yet
+                </p>
               )}
             </div>
 
@@ -297,31 +308,37 @@ export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) =
                   placeholder="Type your question here..."
                   disabled={isSubmitting}
                 />
-                <Button 
+                <Button
                   onClick={submitQuestion}
                   disabled={!newQuestion.trim() || isSubmitting}
                   className="w-full"
                 >
                   <Send className="h-4 w-4 mr-2" />
-                  {isSubmitting ? 'Sending...' : 'Send Question'}
+                  {isSubmitting ? "Sending..." : "Send Question"}
                 </Button>
               </div>
             </div>
           </TabsContent>
-          
+
           <TabsContent value="clarifications" className="space-y-4">
             {clarifications.map((clarification) => (
               <div key={clarification.id} className="border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-medium text-gray-900">{clarification.title}</h4>
-                  <span className="text-xs text-gray-500">{formatDate(clarification.createdAt)}</span>
+                  <h4 className="font-medium text-gray-900">
+                    {clarification.title}
+                  </h4>
+                  <span className="text-xs text-gray-500">
+                    {formatDate(clarification.createdAt)}
+                  </span>
                 </div>
                 <p className="text-gray-700">{clarification.content}</p>
               </div>
             ))}
-            
+
             {clarifications.length === 0 && (
-              <p className="text-gray-500 text-center py-4">No public clarifications available</p>
+              <p className="text-gray-500 text-center py-4">
+                No public clarifications available
+              </p>
             )}
           </TabsContent>
         </Tabs>

@@ -7,6 +7,7 @@ import { CommunicationArea } from "@/components/CommunicationArea";
 import { SubmissionActions } from "@/components/SubmissionActions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/toaster";
 import { DEBUG_MODE, mockTenderDetails } from "@/config/debug";
 
 interface TenderDetails {
@@ -377,6 +378,7 @@ const TenderDetails = () => {
           bidStatus={bidData?.status}
         />
       </div>
+      <Toaster />
     </div>
   );
 };

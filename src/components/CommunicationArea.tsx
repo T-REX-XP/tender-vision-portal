@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Send } from "lucide-react";
 import { DEBUG_MODE } from "@/config/debug";
+import { useToast } from "@/hooks/use-toast";
 
 const mockQAData: QAItem[] = [
   {
@@ -91,6 +92,8 @@ const fetchPublicClarifications = async (tenderId: string): Promise<Clarificatio
 export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) => {
   const [newQuestion, setNewQuestion] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [additionalQuestions, setAdditionalQuestions] = useState<QAItem[]>([]);
+  const { toast } = useToast();
 
   const { data: qaItems = [], refetch: refetchQA } = useQuery({
     queryKey: ['qa', bidId],
@@ -106,19 +109,56 @@ export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) =
     if (!newQuestion.trim()) return;
 
     setIsSubmitting(true);
-    try {
-      const response = await fetch(`/api/tenders/${tenderId}/qa`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: newQuestion })
-      });
+    
+    // Create new question object
+    const newQuestionItem: QAItem = {
+      id: `user-${Date.now()}`,
+      question: newQuestion.trim(),
+      questionBy: "john.smith@techcorp.com", // Current user email in real app
+      createdAt: new Date().toISOString()
+    };
 
-      if (response.ok) {
-        setNewQuestion('');
-        refetchQA();
+    // Add optimistically to local state
+    setAdditionalQuestions(prev => [...prev, newQuestionItem]);
+    setNewQuestion('');
+
+    try {
+      if (DEBUG_MODE) {
+        // In debug mode, just show success
+        toast({
+          title: "Question submitted",
+          description: "Your question has been sent successfully.",
+        });
+      } else {
+        // Make actual API call
+        const response = await fetch(`/api/tenders/${tenderId}/qa`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: newQuestionItem.question })
+        });
+
+        if (response.ok) {
+          toast({
+            title: "Question submitted",
+            description: "Your question has been sent successfully.",
+          });
+          refetchQA();
+        } else {
+          throw new Error('Failed to submit question');
+        }
       }
     } catch (error) {
       console.error('Failed to submit question:', error);
+      
+      // Remove the optimistic update on error
+      setAdditionalQuestions(prev => prev.filter(q => q.id !== newQuestionItem.id));
+      setNewQuestion(newQuestionItem.question);
+      
+      toast({
+        title: "Error",
+        description: "Failed to submit question. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -147,8 +187,11 @@ export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) =
     ).join(' ');
   };
 
+  // Combine original Q&A data with additional questions
+  const allQAItems = [...qaItems, ...additionalQuestions];
+  
   // Create a flat array of messages for chat display
-  const chatMessages = qaItems.flatMap(item => {
+  const chatMessages = allQAItems.flatMap(item => {
     const messages: Array<{
       id: string;
       type: 'question' | 'answer';
@@ -222,7 +265,7 @@ export const CommunicationArea = ({ tenderId, bidId }: CommunicationAreaProps) =
               ))}
               
               {/* Show pending questions that haven't been answered */}
-              {qaItems.some(item => !item.answer) && (
+              {allQAItems.some(item => !item.answer) && (
                 <div className="flex items-start space-x-3">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback className="bg-gray-100 text-gray-400 text-xs">

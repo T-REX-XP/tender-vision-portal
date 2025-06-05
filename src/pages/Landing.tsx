@@ -24,10 +24,9 @@ const Landing = () => {
       
       {/* Hero Section with Banner Image */}
       <section 
-        className="relative bg-contain bg-center bg-no-repeat h-auto flex items-center"
+        className="relative bg-cover bg-center bg-no-repeat min-h-[350px] flex items-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/lovable-uploads/efca7c09-02a6-4302-a0bf-27458102f2c1.png')`,
-          aspectRatio: '16/9'
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/lovable-uploads/efca7c09-02a6-4302-a0bf-27458102f2c1.png')`
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">

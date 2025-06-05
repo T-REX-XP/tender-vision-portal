@@ -260,11 +260,11 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                       step="0.01"
                     />
                   </TableCell>
-                  <TableCell>
-                    <span className="font-medium">
-                      ${calculateTotal(item.quantity, item.unitPrice)}
-                    </span>
-                  </TableCell>
+                   <TableCell>
+                     <span className="font-medium">
+                       {calculateTotal(item.quantity, item.unitPrice)} NOK
+                     </span>
+                   </TableCell>
                   {isEditable && (
                     <TableCell>
                       <Button

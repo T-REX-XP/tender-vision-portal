@@ -9,9 +9,9 @@ export const tenderDetails = [
     status: "Open",
     complexityLevel: "Medium",
     documents: [
-      { name: "Uniform Specifications.pdf", url: "/documents/tender-1-spec.pdf" },
-      { name: "Brand Guidelines.pdf", url: "/documents/tender-1-brand.pdf" },
-      { name: "Size Chart Requirements.pdf", url: "/documents/tender-1-sizes.pdf" }
+      { name: "Request for quotation.pdf", url: "/documents/tender-1-spec.pdf" },
+      { name: "Brand Book.pdf", url: "/documents/tender-1-brand.pdf" },
+  //    { name: "Size Chart Requirements.pdf", url: "/documents/tender-1-sizes.pdf" }
     ],
     requirements: [
       { id: "1", question: "Ability to Handle Last-Minute Requests - Vendor should be able to accommodate short-notice orders (under 24 hours) for up to 30 people.", type: "dropdown" as const, options: ["Yes", "No", "Limited capacity"], mandatory: false },

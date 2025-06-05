@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { DEBUG_MODE, mockTenderDetails } from "@/config/debug";
+import { webapi } from "@/webapi";
 
 interface TenderDetails {
   id: string;
@@ -340,18 +341,38 @@ const TenderDetails = () => {
       );
       return;
     }
-
-    const response = await fetch(`/api/bids`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...bidData, tenderId: id, status: "submitted" }),
+    const record = {
+      "la_desription_mlot": "", //Add value from the general bid description
+      "statuscode": 124210001
+    };
+    webapi.safeAjax({
+      type: "PATCH",
+      contentType: "application/json",
+      url: "/_api/la_bid_tables(bidData.id)",
+      data: JSON.stringify(record),
+      success: function (data, textStatus, xhr) {
+        var newId = xhr.getResponseHeader("entityid");
+        console.log("----Bid submitted");
+        setBidData((prev) =>
+          prev ? { ...prev, status: "submitted" } : undefined
+        );
+      },
+      error: function (xhr, textStatus, errorThrown) {
+        console.log(xhr);
+      },
     });
 
-    if (response.ok) {
-      setBidData((prev) =>
-        prev ? { ...prev, status: "submitted" } : undefined
-      );
-    }
+    // const response = await fetch(`/api/bids`, {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ ...bidData, tenderId: id, status: "submitted" }),
+    // });
+
+    // if (response.ok) {
+    //   setBidData((prev) =>
+    //     prev ? { ...prev, status: "submitted" } : undefined
+    //   );
+    // }
   };
 
   if (tenderLoading || bidLoading) {
@@ -374,7 +395,7 @@ const TenderDetails = () => {
           onUpdate={handleBidUpdate}
         />
 
-        <CommunicationArea tenderId={id!} bidId={bidData?.id} contactId={bidData?.currentPortalUserId}/>
+        <CommunicationArea tenderId={id!} bidId={bidData?.id} contactId={bidData?.currentPortalUserId} />
 
         <SubmissionActions
           isEditable={isEditable}

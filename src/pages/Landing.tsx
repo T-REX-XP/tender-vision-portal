@@ -54,7 +54,7 @@ const Landing = () => {
               <div className="text-gray-600">Store Locations</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">$2.5B</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">25 mrd NOK</div>
               <div className="text-gray-600">Annual Procurement</div>
             </div>
             <div>
@@ -134,7 +134,7 @@ const Landing = () => {
             Ready to Become a Coop Supplier?
           </h2>
           <p className="text-xl text-green-100 mb-8">
-            Join our network of trusted suppliers and grow your business with America's favorite supermarket.
+            Join our network of trusted suppliers and grow your business with Norway's leading supermarket chain.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/tenders">

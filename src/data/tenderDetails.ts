@@ -9,7 +9,7 @@ export const tenderDetails = [
     status: "Open",
     complexityLevel: "Medium",
     documents: [
-      { name: "Request for quotation.pdf", url: "/documents/tender-1-spec.pdf" },
+      { name: "Request for Quotation.pdf", url: "/documents/tender-1-spec.pdf" },
       { name: "Brand Book.pdf", url: "/documents/tender-1-brand.pdf" },
   //    { name: "Size Chart Requirements.pdf", url: "/documents/tender-1-sizes.pdf" }
     ],

@@ -1,16 +1,31 @@
 import { Button } from "@/components/ui/button";
 import { Building2, Search, FileText, Award, ShoppingCart, Users, Truck } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
-import { SHOW_HEADER } from "@/config/debug";
+import { SHOW_HEADER, DEBUG_MODE, mockCategories } from "@/config/debug";
+
+const fetchCategories = async (): Promise<string[]> => {
+  // Return mock data if in debug mode
+  if (DEBUG_MODE) {
+    console.log("Debug mode enabled - using mock categories data");
+    return Promise.resolve(mockCategories);
+  }
+  
+  const response = await fetch('/getcategories');
+  if (!response.ok) {
+    throw new Error('Failed to fetch categories');
+  }
+  return response.json();
+};
 
 const Landing = () => {
   const navigate = useNavigate();
 
-  const categories = [
-    "Fresh Produce", "Dairy & Refrigerated", "Meat & Seafood", "Bakery & Deli",
-    "Packaged Foods", "Beverages", "Health & Beauty", "Household Items"
-  ];
+  const { data: categoriesData = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+  });
 
   const handleCategoryClick = (category: string) => {
     navigate(`/tenders?category=${encodeURIComponent(category)}`);
@@ -112,7 +127,7 @@ const Landing = () => {
             Procurement Categories
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {categories.map((category, index) => (
+            {categoriesData.map((category, index) => (
               <button
                 key={index}
                 onClick={() => handleCategoryClick(category)}

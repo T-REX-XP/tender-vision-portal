@@ -6,12 +6,12 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Plus, Trash2, Upload, X, FileText, File, FileImage, FileArchive, FileVideo, FileAudio } from "lucide-react";
+import { Plus, Trash2, Upload, X, FileText, File, FileImage, FileArchive, FileVideo, FileAudio, Info } from "lucide-react";
 import { useState } from "react";
 
 interface BidSubmissionFormProps {
   tender: {
-    requirements: { id: string; question: string; type: 'text' | 'dropdown'; options?: string[] }[];
+    requirements: { id: string; question: string; type: 'text' | 'dropdown'; options?: string[]; mandatory?: boolean }[];
   };
   bidData?: {
     id: string;
@@ -142,6 +142,14 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
+  const parseQuestion = (question: string) => {
+    const parts = question.split(' - ');
+    return {
+      title: parts[0],
+      description: parts.slice(1).join(' - ')
+    };
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -167,44 +175,61 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
         </div>
 
         {/* Questionnaire */}
-        <div>
-          <h3 className="font-semibold text-lg mb-3">Requirements Questionnaire</h3>
-          <div className="space-y-4">
-            {tender.requirements.map((req) => (
-              <div key={req.id}>
-                <Label htmlFor={`req-${req.id}`}>{req.question}</Label>
-                {req.type === 'text' ? (
-                  <Textarea
-                    id={`req-${req.id}`}
-                    value={(bidData.questionnaire || {})[req.id] || ''}
-                    onChange={(e) => onUpdate({
-                      questionnaire: { ...(bidData.questionnaire || {}), [req.id]: e.target.value }
-                    })}
-                    disabled={!isEditable}
-                    className="mt-1"
-                  />
-                ) : (
-                  <Select
-                    value={(bidData.questionnaire || {})[req.id] || ''}
-                    onValueChange={(value) => onUpdate({
-                      questionnaire: { ...(bidData.questionnaire || {}), [req.id]: value }
-                    })}
-                    disabled={!isEditable}
-                  >
-                    <SelectTrigger className="mt-1">
-                      <SelectValue placeholder="Select an option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {req.options?.map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              </div>
-            ))}
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-100">
+          <h3 className="font-semibold text-xl mb-6 text-gray-900">Requirements Questionnaire</h3>
+          <div className="space-y-6">
+            {tender.requirements.map((req) => {
+              const { title, description } = parseQuestion(req.question);
+              return (
+                <div key={req.id} className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="mb-3">
+                    <Label htmlFor={`req-${req.id}`} className="text-base font-medium text-gray-900 flex items-start gap-2">
+                      {title}
+                      {req.mandatory && (
+                        <span className="text-red-500 text-sm">*</span>
+                      )}
+                    </Label>
+                    {description && (
+                      <div className="flex items-start gap-2 mt-2 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400">
+                        <Info className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <p className="text-sm text-blue-800 leading-relaxed">{description}</p>
+                      </div>
+                    )}
+                  </div>
+                  {req.type === 'text' ? (
+                    <Textarea
+                      id={`req-${req.id}`}
+                      value={(bidData.questionnaire || {})[req.id] || ''}
+                      onChange={(e) => onUpdate({
+                        questionnaire: { ...(bidData.questionnaire || {}), [req.id]: e.target.value }
+                      })}
+                      disabled={!isEditable}
+                      placeholder="Please provide your detailed response..."
+                      className="mt-3 min-h-[100px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  ) : (
+                    <Select
+                      value={(bidData.questionnaire || {})[req.id] || ''}
+                      onValueChange={(value) => onUpdate({
+                        questionnaire: { ...(bidData.questionnaire || {}), [req.id]: value }
+                      })}
+                      disabled={!isEditable}
+                    >
+                      <SelectTrigger className="mt-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <SelectValue placeholder="Select an option" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white border border-gray-200 shadow-lg z-50">
+                        {req.options?.map((option) => (
+                          <SelectItem key={option} value={option} className="hover:bg-blue-50">
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 

@@ -181,7 +181,7 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
             {tender.requirements.map((req) => {
               const { title, description } = parseQuestion(req.question);
               return (
-                <div key={req.id} className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                <div key={req.id} className="mb-6">
                   <div className="mb-3">
                     <Label htmlFor={`req-${req.id}`} className="text-base font-medium text-gray-900 flex items-start gap-2">
                       {title}
@@ -202,7 +202,7 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                       })}
                       disabled={!isEditable}
                       placeholder="Please provide your detailed response..."
-                      className="mt-3 min-h-[100px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="min-h-[100px]"
                     />
                   ) : (
                     <Select
@@ -212,12 +212,12 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                       })}
                       disabled={!isEditable}
                     >
-                      <SelectTrigger className="mt-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select an option" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-gray-200 shadow-lg z-50">
+                      <SelectContent>
                         {req.options?.map((option) => (
-                          <SelectItem key={option} value={option} className="hover:bg-blue-50">
+                          <SelectItem key={option} value={option}>
                             {option}
                           </SelectItem>
                         ))}

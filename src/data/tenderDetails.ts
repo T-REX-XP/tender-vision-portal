@@ -14,16 +14,16 @@ export const tenderDetails = [
       { name: "Size Chart Requirements.pdf", url: "/documents/tender-1-sizes.pdf" }
     ],
     requirements: [
-      { id: "1", question: "Ability to Handle Last-Minute Requests - Vendor should be able to accommodate short-notice orders (under 24 hours) for up to 30 people.", type: "dropdown" as const, options: ["Yes", "No", "Limited capacity"] },
-      { id: "2", question: "Compliance with Food Safety Standards - Vendor must comply with all local and EU food hygiene and safety regulations.", type: "dropdown" as const, options: ["Yes, fully compliant", "Working towards compliance", "Need assistance with compliance"] },
-      { id: "3", question: "Cost per Person - Bidders must provide clear pricing per person, including breakdowns for different menu levels.", type: "text" as const },
-      { id: "4", question: "Digital Ordering Platform - An online platform or app for internal teams to place, modify, or cancel orders is preferred.", type: "dropdown" as const, options: ["Yes, available", "No", "In development"] },
-      { id: "5", question: "Experience with Corporate Catering - Vendor should demonstrate experience handling corporate events and staff functions throughout the year.", type: "text" as const },
-      { id: "6", question: "On-Time Delivery - Food must be delivered to specified locations at least 15 minutes before the scheduled event start time.", type: "dropdown" as const, options: ["Yes, guaranteed", "Yes, best effort", "Cannot guarantee"] },
-      { id: "7", question: "Provision of Serving Staff - Vendor should be able to provide serving staff for formal events upon request.", type: "dropdown" as const, options: ["Yes", "No", "Through partner"] },
-      { id: "8", question: "References from Similar Clients - Bidders should include at least 2 references from companies with similar catering needs.", type: "text" as const },
-      { id: "9", question: "Sustainability Practices - Preference for vendors that use recyclable packaging, local ingredients, or offer waste minimization.", type: "text" as const },
-      { id: "10", question: "Variety of Menu Options - Vendor must provide a wide selection of menu options including vegetarian, vegan, gluten-free, and allergy-friendly meals.", type: "text" as const }
+      { id: "1", question: "Ability to Handle Last-Minute Requests - Vendor should be able to accommodate short-notice orders (under 24 hours) for up to 30 people.", type: "dropdown" as const, options: ["Yes", "No", "Limited capacity"], mandatory: false },
+      { id: "2", question: "Compliance with Food Safety Standards - Vendor must comply with all local and EU food hygiene and safety regulations.", type: "dropdown" as const, options: ["Yes, fully compliant", "Working towards compliance", "Need assistance with compliance"], mandatory: true },
+      { id: "3", question: "Cost per Person - Bidders must provide clear pricing per person, including breakdowns for different menu levels.", type: "text" as const, mandatory: true },
+      { id: "4", question: "Digital Ordering Platform - An online platform or app for internal teams to place, modify, or cancel orders is preferred.", type: "dropdown" as const, options: ["Yes, available", "No", "In development"], mandatory: false },
+      { id: "5", question: "Experience with Corporate Catering - Vendor should demonstrate experience handling corporate events and staff functions throughout the year.", type: "text" as const, mandatory: false },
+      { id: "6", question: "On-Time Delivery - Food must be delivered to specified locations at least 15 minutes before the scheduled event start time.", type: "dropdown" as const, options: ["Yes, guaranteed", "Yes, best effort", "Cannot guarantee"], mandatory: true },
+      { id: "7", question: "Provision of Serving Staff - Vendor should be able to provide serving staff for formal events upon request.", type: "dropdown" as const, options: ["Yes", "No", "Through partner"], mandatory: false },
+      { id: "8", question: "References from Similar Clients - Bidders should include at least 2 references from companies with similar catering needs.", type: "text" as const, mandatory: false },
+      { id: "9", question: "Sustainability Practices - Preference for vendors that use recyclable packaging, local ingredients, or offer waste minimization.", type: "text" as const, mandatory: false },
+      { id: "10", question: "Variety of Menu Options - Vendor must provide a wide selection of menu options including vegetarian, vegan, gluten-free, and allergy-friendly meals.", type: "text" as const, mandatory: true }
     ]
   },
   {

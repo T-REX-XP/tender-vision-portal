@@ -318,7 +318,7 @@ const TenderDetails = () => {
       );
     }
     console.log("=== END BID DATA DEBUG ===");
-  }, [existingBid, bidData, bidLoading]);
+  }, [existingBid, bidLoading]);
 
   const isEditable = bidData?.status === "draft" &&
     tenderDetails &&

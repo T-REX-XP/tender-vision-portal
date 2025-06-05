@@ -22,11 +22,11 @@ const Landing = () => {
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       {SHOW_HEADER && <Header />}
       
-      {/* Hero Section with Background Image */}
+      {/* Hero Section with Banner Image */}
       <section 
         className="py-20 relative bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`
+          backgroundImage: `url('/lovable-uploads/5a08178a-18e5-487c-801f-0ef2a8438205.png')`
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

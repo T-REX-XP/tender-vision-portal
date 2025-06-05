@@ -12,7 +12,7 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ tenderData, isLoading }: HeroSectionProps) => {
   return (
-    <section className="bg-blue-600 text-white py-12">
+    <section className="text-white py-12" style={{ backgroundColor: '#003366' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-4xl font-bold mb-4">Discover Business Opportunities</h2>
         <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">

@@ -320,10 +320,9 @@ const TenderDetails = () => {
     console.log("=== END BID DATA DEBUG ===");
   }, [existingBid, bidData, bidLoading]);
 
-  const isEditable = bidData?.status != null;
-  // &&
-  // tenderDetails &&
-  // new Date(tenderDetails.deadline) > new Date();
+  const isEditable = bidData?.status === "draft" &&
+    tenderDetails &&
+    new Date(tenderDetails.deadline) > new Date();
 
   const handleBidUpdate = (updatedBid: Partial<BidData>) => {
     setBidData((prev) =>

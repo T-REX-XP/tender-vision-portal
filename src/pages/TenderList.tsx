@@ -1,13 +1,16 @@
 
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 import { HeroSection } from "@/components/HeroSection";
 import { FiltersSection } from "@/components/FiltersSection";
 import { TenderGrid } from "@/components/TenderGrid";
 import { fetchTenders, fetchCategories } from "@/hooks/use-tender-data";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -49,6 +52,19 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <HeroSection tenderData={tenderData} isLoading={isLoading} />
+      
+      {/* Back Button */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Button 
+          variant="outline" 
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Button>
+      </div>
+      
       <FiltersSection
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}

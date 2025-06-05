@@ -342,7 +342,7 @@ const TenderDetails = () => {
       return;
     }
     const record = {
-      "la_desription_mlot": "", //Add value from the general bid description
+      "la_desription_mlot": bidData?.generalDescription || "",
       "statuscode": 124210001
     };
     webapi.safeAjax({

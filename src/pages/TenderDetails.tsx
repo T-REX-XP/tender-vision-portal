@@ -68,14 +68,16 @@ const mockBidDetails: BidData = {
   generalDescription:
     "We are pleased to submit our comprehensive proposal for this project. Our team brings over 15 years of experience in delivering high-quality solutions that meet and exceed client expectations. We have carefully reviewed all requirements and are confident in our ability to deliver exceptional results within the specified timeframe.\n\nOur approach includes thorough project planning, agile development methodologies, comprehensive testing protocols, and detailed documentation. We maintain transparent communication throughout the project lifecycle and provide regular progress updates to ensure alignment with your objectives.\n\nOur team consists of certified professionals with extensive industry knowledge and proven expertise in similar projects. We are committed to delivering not just a product, but a solution that adds genuine value to your organization.",
   questionnaire: {
-    "1": "Our company has 15+ years of experience in this field with a proven track record of successful project delivery. We have completed over 200 similar projects across various industries including government, healthcare, education, and private sector organizations.",
-    "2": "ISO 9001:2015 certified with additional certifications in project management (PMP), quality assurance (ISTQB), cybersecurity (ISO 27001), and industry-specific compliance standards. Our team holds relevant professional certifications and participates in continuous learning programs.",
-    "3": "We can complete this project within 8-12 weeks depending on final specifications and requirements. Our project timeline includes 2 weeks for planning and design, 6-8 weeks for development and implementation, and 2 weeks for testing, deployment, and knowledge transfer.",
-    "4": "Our quality assurance process includes multiple testing phases: unit testing, integration testing, system testing, user acceptance testing, and performance testing. We follow industry best practices and maintain comprehensive test documentation.",
-    "5": "We provide 12 months of warranty coverage including bug fixes, minor enhancements, and technical support. Additionally, we offer optional maintenance packages for ongoing support, updates, and system monitoring.",
-    "6": "Our team includes senior project managers, lead developers, quality assurance specialists, technical writers, and subject matter experts. All team members have relevant experience and will be dedicated to this project throughout its duration.",
-    "7": "We implement robust security measures including data encryption, secure authentication, access controls, regular security audits, and compliance with relevant data protection regulations such as GDPR and industry-specific requirements.",
-    "8": "Our risk mitigation strategy includes thorough project planning, regular risk assessments, contingency planning, backup procedures, and clear escalation protocols. We maintain detailed risk registers and provide regular risk status reports.",
+    "1": "Yes – Agile partly, DevOps in place.",
+    "2": "No – No test automation yet.",
+    "3": "Yes – Certified team in place.",
+    "4": "Yes – GDPR compliant.",
+    "5": "Yes – Audited statements available.",
+    "6": "OK – Innovation partly documented.",
+    "7": "Yes – 24/7 support with SLAs.",
+    "8": "OK – Some similar projects done.",
+    "9": "OK – Pro-green, no formal policy.",
+    "10": "Yes – Full API integration supported.",
   },
   lineItems: [
     {
@@ -320,7 +322,7 @@ const TenderDetails = () => {
     console.log("=== END BID DATA DEBUG ===");
   }, [existingBid, bidLoading]);
 
-  const isEditable = bidData?.status === "draft" &&
+  const isEditable = bidData?.status?.toLowerCase() === "draft" &&
     tenderDetails &&
     new Date(tenderDetails.deadline) > new Date();
 
@@ -347,7 +349,7 @@ const TenderDetails = () => {
     webapi.safeAjax({
       type: "PATCH",
       contentType: "application/json",
-      url: "/_api/la_bid_tables(bidData.id)",
+      url: `/_api/la_bid_tables(${bidData.id})`,
       data: JSON.stringify(record),
       success: function (data, textStatus, xhr) {
         var newId = xhr.getResponseHeader("entityid");

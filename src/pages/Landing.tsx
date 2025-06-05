@@ -19,7 +19,7 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {SHOW_HEADER && <Header />}
       
       {/* Hero Section with Banner Image */}
@@ -55,19 +55,19 @@ const Landing = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">500+</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
               <div className="text-gray-600">Store Locations</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">25 mrd NOK</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">25 mrd NOK</div>
               <div className="text-gray-600">Annual Procurement</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">1,200+</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">1,200+</div>
               <div className="text-gray-600">Active Suppliers</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">50+</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">50+</div>
               <div className="text-gray-600">Product Categories</div>
             </div>
           </div>
@@ -82,8 +82,8 @@ const Landing = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center bg-white p-6 rounded-lg shadow-sm">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShoppingCart className="h-8 w-8 text-green-600" />
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ShoppingCart className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Nationwide Reach</h3>
               <p className="text-gray-600">
@@ -123,7 +123,7 @@ const Landing = () => {
               <button
                 key={index}
                 onClick={() => handleCategoryClick(category)}
-                className="bg-gray-50 p-4 rounded-lg text-center hover:bg-gray-100 transition-colors cursor-pointer border border-transparent hover:border-green-200"
+                className="bg-gray-50 p-4 rounded-lg text-center hover:bg-gray-100 transition-colors cursor-pointer border border-transparent hover:border-blue-200"
               >
                 <div className="font-medium text-gray-900">{category}</div>
               </button>
@@ -133,12 +133,12 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-green-600">
+      <section className="py-16" style={{ backgroundColor: '#003366' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Become a Coop Supplier?
           </h2>
-          <p className="text-xl text-green-100 mb-8">
+          <p className="text-xl text-blue-100 mb-8">
             Join our network of trusted suppliers and grow your business with Norway's leading supermarket chain.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -147,7 +147,7 @@ const Landing = () => {
                 Browse Opportunities
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-4 text-green-600 bg-white border-white hover:bg-green-50">
+            <Button size="lg" variant="outline" className="text-lg px-8 py-4 text-blue-600 bg-white border-white hover:bg-blue-50">
               Supplier Registration
             </Button>
           </div>

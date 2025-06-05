@@ -211,7 +211,7 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                         questionnaire: { ...(bidData.questionnaire || {}), [req.id]: value }
                       })}
                       disabled={!isEditable}
-                      className="space-y-2"
+                      className="flex flex-wrap gap-4"
                     >
                       {req.options?.map((option) => (
                         <div key={option} className="flex items-center space-x-2">

@@ -68,9 +68,9 @@ const fetchPrivateQA = async (bidId?: string): Promise<Correspondence[]> => {
 const fetchPublicClarifications = async (
   tenderId: string
 ): Promise<Clarification[]> => {
-  const response = await fetch(`/api/tenders/${tenderId}/clarifications`);
-  if (!response.ok) throw new Error("Failed to fetch clarifications");
-  return response.json();
+  //const response = await fetch(`/api/tenders/${tenderId}/clarifications`);
+  //if (!response.ok) throw new Error("Failed to fetch clarifications");
+  return Promise.resolve([]);//response.json();
 };
 
 export const CommunicationArea = ({

@@ -24,24 +24,29 @@ const Landing = () => {
       
       {/* Hero Section with Banner Image */}
       <section 
-        className="py-20 relative bg-cover bg-center bg-no-repeat"
+        className="relative bg-cover bg-center bg-no-repeat min-h-[500px] flex items-center"
         style={{
-          backgroundImage: `url('/lovable-uploads/5a08178a-18e5-487c-801f-0ef2a8438205.png')`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/lovable-uploads/5a08178a-18e5-487c-801f-0ef2a8438205.png')`
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold text-white mb-6">
-            Coop Tender Portal
-          </h1>
-          <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-            Partner with one of the nation's leading supermarket chains. 
-            Access procurement opportunities for fresh produce, packaged goods, and specialty items across our 500+ store locations.
-          </p>
-          <Link to="/tenders">
-            <Button size="lg" className="text-lg px-8 py-4 bg-green-600 hover:bg-green-700">
-              View Current Opportunities
-            </Button>
-          </Link>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-2xl">
+            <div className="text-sm font-medium text-orange-400 mb-3 uppercase tracking-wider">
+              NORGES LEDENDE LEVERANDØRPORTAL
+            </div>
+            <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
+              Coop Tender Portal
+            </h1>
+            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+              Partner with one of the nation's leading supermarket chains. 
+              Access procurement opportunities for fresh produce, packaged goods, and specialty items across our 500+ store locations.
+            </p>
+            <Link to="/tenders">
+              <Button size="lg" className="text-lg px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full">
+                Se aktuelle muligheter her!
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 

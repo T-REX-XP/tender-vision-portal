@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Trash2, Upload, X, FileText, File, FileImage, FileArchive, FileVideo, FileAudio, Info } from "lucide-react";
 import { useState } from "react";
@@ -205,24 +205,23 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                       className="min-h-[100px]"
                     />
                   ) : (
-                    <Select
+                    <RadioGroup
                       value={(bidData.questionnaire || {})[req.id] || ''}
                       onValueChange={(value) => onUpdate({
                         questionnaire: { ...(bidData.questionnaire || {}), [req.id]: value }
                       })}
                       disabled={!isEditable}
+                      className="space-y-2"
                     >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select an option" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {req.options?.map((option) => (
-                          <SelectItem key={option} value={option}>
+                      {req.options?.map((option) => (
+                        <div key={option} className="flex items-center space-x-2">
+                          <RadioGroupItem value={option} id={`${req.id}-${option}`} />
+                          <Label htmlFor={`${req.id}-${option}`} className="text-sm font-normal">
                             {option}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                          </Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
                   )}
                 </div>
               );

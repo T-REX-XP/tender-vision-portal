@@ -1,23 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Building2, Search, FileText, Award, ShoppingCart, Users, Truck } from "lucide-react";
+import { ShoppingCart, Users, Truck } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
-import { SHOW_HEADER, DEBUG_MODE, mockCategories } from "@/config/debug";
-
-const fetchCategories = async (): Promise<string[]> => {
-  // Return mock data if in debug mode
-  if (DEBUG_MODE) {
-    console.log("Debug mode enabled - using mock categories data");
-    return Promise.resolve(mockCategories);
-  }
-  
-  const response = await fetch('/getcategories');
-  if (!response.ok) {
-    throw new Error('Failed to fetch categories');
-  }
-  return response.json();
-};
+import { SHOW_HEADER } from "@/config/debug";
+import { fetchCategories } from "@/hooks/use-tender-data";
 
 const Landing = () => {
   const navigate = useNavigate();

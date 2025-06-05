@@ -5,36 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { HeroSection } from "@/components/HeroSection";
 import { FiltersSection } from "@/components/FiltersSection";
 import { TenderGrid } from "@/components/TenderGrid";
-import { DEBUG_MODE, mockTenders, mockCategories } from "@/config/debug";
-import ITender from "@/types/ITender";
-
-const fetchTenders = async (): Promise<ITender[]> => {
-  // Return mock data if in debug mode
-  if (DEBUG_MODE) {
-    console.log("Debug mode enabled - using mock tender data");
-    return Promise.resolve(mockTenders);
-  }
-  
-  const response = await fetch('/gettenders');
-  if (!response.ok) {
-    throw new Error('Failed to fetch tenders');
-  }
-  return response.json();
-};
-
-const fetchCategories = async (): Promise<string[]> => {
-  // Return mock data if in debug mode
-  if (DEBUG_MODE) {
-    console.log("Debug mode enabled - using mock categories data");
-    return Promise.resolve(mockCategories);
-  }
-  
-  const response = await fetch('/getcategories');
-  if (!response.ok) {
-    throw new Error('Failed to fetch categories');
-  }
-  return response.json();
-};
+import { fetchTenders, fetchCategories } from "@/hooks/use-tender-data";
 
 const Index = () => {
   const [searchParams, setSearchParams] = useSearchParams();

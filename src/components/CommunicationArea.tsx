@@ -258,7 +258,10 @@ export const CommunicationArea = ({
                           "bg-green-50 border-l-4 border-green-200"
                       }`}
                     >
-                      <p className="text-sm text-gray-700">{message.message}</p>
+                      <div 
+                        className="text-sm text-gray-700 prose prose-sm max-w-none"
+                        dangerouslySetInnerHTML={{ __html: message.message }}
+                      />
                     </div>
                   </div>
                 </div>

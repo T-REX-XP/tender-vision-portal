@@ -59,7 +59,10 @@ export const TenderCard = ({ tender }: TenderCardProps) => {
             <span>Deadline: {new Date(tender.deadline).toLocaleDateString()}</span>
           </div>
         </div>
-        <Button className="w-full mt-4" variant="outline" onClick={handleViewDetails}>
+        <Button 
+          className="w-full mt-4 bg-[#003366] hover:bg-blue-700 text-white" 
+          onClick={handleViewDetails}
+        >
           View Details
         </Button>
       </CardContent>

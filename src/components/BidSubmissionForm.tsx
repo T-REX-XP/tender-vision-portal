@@ -190,10 +190,7 @@ export const BidSubmissionForm = ({ tender, bidData, isEditable, onUpdate }: Bid
                       )}
                     </Label>
                     {description && (
-                      <div className="flex items-start gap-2 mt-2 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400">
-                        <Info className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                        <p className="text-sm text-blue-800 leading-relaxed">{description}</p>
-                      </div>
+                      <p className="text-sm text-gray-600 mt-1">{description}</p>
                     )}
                   </div>
                   {req.type === 'text' ? (
